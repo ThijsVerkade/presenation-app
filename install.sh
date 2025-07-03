@@ -15,11 +15,11 @@ BASE_DIR="/media/pi/Lexar/presentation-usb"
 # 📁 Copy Laravel app to /var/www/html
 echo "📁 Copying project to /var/www/html..."
 sudo rm -rf /var/www/html
-sudo cp -r "$BASE_DIR/presentation-app" /var/www/html
+sudo mkdir -p /var/www/html
+sudo cp -r "$BASE_DIR/presentation-app/"* /var/www/html
 sudo chown -R www-data:www-data /var/www/html
 
 # 🌐 Install PHP, Nginx, and Laravel dependencies
-echo "🔧 Installing PHP, Nginx, and required extensions..."
 sudo apt update
 sudo apt install -y php php-fpm php-mbstring php-xml php-bcmath php-curl php-zip php-sqlite3 unzip nginx
 
@@ -49,7 +49,7 @@ server {
 
     location ~ \.php$ {
         include snippets/fastcgi-php.conf;
-        fastcgi_pass unix:/var/run/php/php-fpm.sock;
+        fastcgi_pass unix:/run/php/php7.4-fpm.sock;
     }
 
     location ~ /\.ht {
@@ -61,11 +61,11 @@ EOF
 # Enable Nginx site and restart services
 sudo ln -sf /etc/nginx/sites-available/laravel /etc/nginx/sites-enabled/default
 sudo systemctl restart nginx
-sudo systemctl restart php*-fpm
+sudo systemctl restart php7.4-fpm
 
 # 📡 Setup WiFi access point
 echo "📡 Setting up access point..."
-cd /home/pi/presentation-app
+cd "$BASE_DIR"
 chmod +x setup-access-point.sh enable-external-access.sh
 ./setup-access-point.sh
 
