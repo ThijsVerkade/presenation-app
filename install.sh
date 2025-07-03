@@ -12,45 +12,72 @@ fi
 # Mount point of the USB
 BASE_DIR="/media/pi/Lexar/presentation-usb"
 
-# 📁 Copy project to home directory
-echo "📁 Copying project to /home/pi/presentation-app..."
-cp -r "$BASE_DIR/presentation-app" /home/pi/presentation-app
+# 📁 Copy Laravel app to /var/www/html
+echo "📁 Copying project to /var/www/html..."
+sudo rm -rf /var/www/html
+sudo cp -r "$BASE_DIR/presentation-app" /var/www/html
+sudo chown -R www-data:www-data /var/www/html
 
-# 🐳 Install Docker
-echo "🐳 Installing Docker..."
-curl -fsSL https://get.docker.com -o get-docker.sh
-sh get-docker.sh
-sudo usermod -aG docker pi
-sudo systemctl enable docker
+# 🌐 Install PHP, Nginx, and Laravel dependencies
+echo "🔧 Installing PHP, Nginx, and required extensions..."
+sudo apt update
+sudo apt install -y php php-fpm php-mbstring php-xml php-bcmath php-curl php-zip php-sqlite3 unzip nginx
 
-# Make scripts executable
-cd /home/pi/presentation-app
-chmod +x setup-access-point.sh enable-external-access.sh docker-start.sh docker-install.sh
+# 🛠 Configure permissions for Laravel
+cd /var/www/html
+mkdir -p storage/logs
+chmod -R 775 storage bootstrap/cache
+chown -R www-data:www-data storage bootstrap/cache
+
+# 🧠 Set up SQLite database (optional, if used)
+touch database/database.sqlite
+chown www-data:www-data database/database.sqlite
+
+# 🌐 Configure Nginx for Laravel
+echo "🛠 Setting up Nginx config..."
+cat <<EOF | sudo tee /etc/nginx/sites-available/laravel
+server {
+    listen 80;
+    server_name localhost;
+    root /var/www/html/public;
+
+    index index.php index.html;
+
+    location / {
+        try_files \$uri \$uri/ /index.php?\$query_string;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php-fpm.sock;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+}
+EOF
+
+# Enable Nginx site and restart services
+sudo ln -sf /etc/nginx/sites-available/laravel /etc/nginx/sites-enabled/default
+sudo systemctl restart nginx
+sudo systemctl restart php*-fpm
 
 # 📡 Setup WiFi access point
 echo "📡 Setting up access point..."
+cd /home/pi/presentation-app
+chmod +x setup-access-point.sh enable-external-access.sh
 ./setup-access-point.sh
 
-# 🌐 Enable optional internet sharing
+# 🌍 Enable optional external access
 echo "🌐 Configuring optional external access..."
 ./enable-external-access.sh
 
-# ▶️ Run Docker image loading and container start
-echo "🚀 Starting Docker app..."
-./docker-install.sh
-
-# 🛠 Copy and enable Laravel auto-start service
-echo "🛠 Installing Laravel auto-start service..."
-cp presentation.service /etc/systemd/system/
-systemctl daemon-reexec
-systemctl enable presentation.service
-systemctl start presentation.service
-
-# 🔄 Enable USB auto-reinstall for future
+# 🔄 Enable USB auto-reinstall service
 echo "🔧 Enabling USB auto-install for future devices..."
 cp "$BASE_DIR/usb-autoinstall.service" /etc/systemd/system/
-systemctl daemon-reexec
-systemctl enable usb-autoinstall.service
+sudo systemctl daemon-reexec
+sudo systemctl enable usb-autoinstall.service
 
 # ✅ Mark as installed
 touch /etc/presentation-installed.flag
