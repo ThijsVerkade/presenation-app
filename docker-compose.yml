@@ -1,0 +1,12 @@
+services:
+    app:
+        image: serversideup/php:8.4-fpm-nginx-alpine
+        container_name: presentation-app
+        ports:
+            - "80:80"
+        volumes:
+            - .:/var/www/html
+        environment:
+            APP_ENV: local
+            APP_KEY: base64:K9iL6/4OeNPMid9WT7bmsFPug9Bzgi/LM1ABXBqAnJQ=
+            LOG_CHANNEL: stderr
