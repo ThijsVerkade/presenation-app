@@ -1,12 +1,13 @@
 [Unit]
-Description=Start Laravel Presentation App (no Docker)
-After=network.target nginx.service php-fpm.service
-Requires=nginx.service php-fpm.service
+Description=Start Laravel Presentation App with Docker
+After=network.target docker.service
+Requires=docker.service
 
 [Service]
-Type=oneshot
-ExecStart=/bin/true
-RemainAfterExit=true
+Type=simple
+ExecStart=/home/thijs.verkade/presentation-app/docker-start.sh
+WorkingDirectory=/home/thijs.verkade/presentation-app
+Restart=always
 
 [Install]
 WantedBy=multi-user.target
