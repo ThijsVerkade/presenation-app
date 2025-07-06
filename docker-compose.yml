@@ -6,6 +6,7 @@ services:
     container_name: presentation-app
     ports:
       - "8080:8080"
+      - "6001:6001"
     volumes:
       - ./public/media:/var/www/html/public/media
     restart: unless-stopped

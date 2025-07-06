@@ -10,7 +10,13 @@ if [ -f /etc/presentation-installed.flag ]; then
 fi
 
 # Mount point of the USB
-BASE_DIR="/media/thijs.verkade/Naamloos"
+BASE_DIR="TODO"
+
+# Check base dir is todo
+if [ "$BASE_DIR" == "TODO" ]; then
+  echo "❌ Base directory not set. Please set BASE_DIR variable in the script."
+  exit 1
+fi
 
 # Copy project to home directory
 cp -r "$BASE_DIR/presentation-app" /home/thijs.verkade/presentation-app
