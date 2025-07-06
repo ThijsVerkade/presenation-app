@@ -11,14 +11,19 @@ if ! command -v docker-compose &> /dev/null; then
   sudo apt install -y docker-compose
 fi
 
-# 🛑 Stop and remove any existing container
-if [ "$(docker ps -aq -f name=$CONTAINER_NAME)" ]; then
-  echo "♻️ Stopping and removing existing container..."
-  docker stop $CONTAINER_NAME || true
-  docker rm $CONTAINER_NAME || true
+# Check if container is already running
+if docker ps -q -f name=$CONTAINER_NAME | grep -q .; then
+  echo "✅ Container '$CONTAINER_NAME' is already running. Skipping start."
+  exit 0
 fi
 
-# ▶️ Start with docker-compose
-echo "🚀 Starting Docker container with docker-compose..."
-cd /home/thijs.verkade/presentation-app
-sudo docker-compose up -d
+# Check if container exists but is stopped
+if docker ps -aq -f name=$CONTAINER_NAME | grep -q .; then
+  echo "🔁 Starting existing stopped container '$CONTAINER_NAME'..."
+  docker start $CONTAINER_NAME
+else
+  # ▶️ Start with docker-compose
+  echo "🚀 Starting Docker container with docker-compose..."
+  cd /home/thijs.verkade/presentation-app
+  sudo docker-compose up -d
+fi
