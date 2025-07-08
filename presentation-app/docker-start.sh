@@ -25,5 +25,10 @@ else
   # ▶️ Start with docker-compose
   echo "🚀 Starting Docker container with docker-compose..."
   cd /home/thijs.verkade/presentation-app
+
+  # Enable BuildKit universally
+  export DOCKER_BUILDKIT=1
+  export COMPOSE_DOCKER_CLI_BUILD=1
+
   sudo docker-compose up -d
 fi
