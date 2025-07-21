@@ -1,0 +1,102 @@
+$component: 'c-date-picker';
+
+.#{$component} {
+    &--disabled {
+        .flatpickr-input {
+            background-color: theme('colors.neutral.100') !important;
+            cursor: not-allowed !important;
+        }
+    }
+    .flatpickr-input {
+        background-color: theme('colors.white');
+        padding: 0.5rem 1rem;
+        max-height: 40px;
+        width: 100%;
+        border-radius: 0.5rem;
+        color: theme('colors.neutral.400');
+        border: 1px solid theme('colors.neutral.300');
+        font-size: theme('fontSize.base');
+        letter-spacing: 0;
+        text-align: left;
+
+        &:focus {
+            border: 1px solid theme('colors.neutral.400');
+            outline: none;
+        }
+    }
+}
+
+.flatpickr-calendar {
+    border-radius: 0.5rem !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: 0 0.125rem 0.125rem rgba(28, 25, 23, 0.05);
+    background-color: theme('colors.white') !important;
+    font-size: theme('fontSize.sm') !important;
+
+    .flatpickr-day.selected {
+        background-color: theme('colors.neutral.800');
+        border: 1px solid theme('colors.neutral.800');
+        color: theme('colors.neutral.100') !important;
+
+        &:hover {
+            background-color: theme('colors.neutral.400');
+            border: 1px solid theme('colors.neutral.400');
+        }
+    }
+
+    .flatpickr-day.today,
+    .startRange,
+    .endRange {
+        border: 1px solid theme('colors.neutral.500');
+        color: theme('colors.neutral.700') !important;
+
+        &.selected {
+            color: theme('colors.neutral.100') !important;
+        }
+
+        &:hover {
+            background-color: theme('colors.neutral.500');
+            border: 1px solid theme('colors.neutral.500');
+        }
+    }
+
+    .flatpickr-day.startRange,
+    .flatpickr-day.endRange,
+    .flatpickr-day.startRange.nextMonthDay,
+    .flatpickr-day.endRange.nextMonthDay,
+    .flatpickr-day.startRange.prevMonthDay,
+    .flatpickr-day.endRange.prevMonthDay {
+        color: theme('colors.neutral.100') !important;
+        background-color: theme('colors.neutral.800');
+        border: 1px solid theme('colors.neutral.800');
+
+        &:hover,
+        &:focus {
+            background-color: theme('colors.neutral.800');
+            border: 1px solid theme('colors.neutral.800');
+        }
+    }
+
+    .flatpickr-day:hover {
+        background-color: theme('colors.neutral.400');
+    }
+
+    .flatpickr-current-month {
+        font-size: theme('fontSize.lg');
+        color: theme('colors.neutral.700');
+        font-weight: 600 !important;
+
+        .flatpickr-monthDropdown-months,
+        .numInputWrapper .numInput {
+            font-weight: 500;
+        }
+    }
+
+    .flatpickr-day.selected.startRange + .endRange:not(:nth-child(7n + 1)),
+    .flatpickr-day.startRange.startRange + .endRange:not(:nth-child(7n + 1)),
+    .flatpickr-day.endRange.startRange + .endRange:not(:nth-child(7n + 1)) {
+        -webkit-box-shadow: -0.625rem 0 0 theme('colors.neutral.300') !important;
+        box-shadow: -0.625rem 0 0 theme('colors.neutral.300') !important;
+    }
+}

@@ -1,0 +1,188 @@
+@use '../tools' as tools;
+
+$component: 'c-select';
+
+.#{$component} {
+    --ms-bg: theme('colors.neutral.DEFAULT');
+    --ms-empty-color: #4b5563;
+    --ms-border-color: #d1d5db;
+    --ms-border-width: 1px;
+    --ms-border-color-active: #d1d5db;
+    --ms-radius: 0.5rem;
+    --ms-py: 0.5rem;
+    --ms-px: 1rem;
+    --ms-font-size: theme('fontSize.base');
+    --ms-placeholder-color: theme('colors.neutral.400');
+    --ms-caret-color: theme('colors.neutral.400');
+    --ms-caret-size: 0.75rem;
+    --ms-caret-top: 50%;
+    --ms-caret-right: 1em;
+    --ms-caret-transform: translateY(-50%);
+    --ms-spinner-color: theme('colors.neutral.400');
+    --ms-clear-color: theme('colors.neutral.400');
+    --ms-clear-color-hover: theme('colors.neutral.400');
+    --ms-tag-font-size: 0.75rem;
+    --ms-tag-line-height: 1.25rem;
+    --ms-tag-font-weight: 600;
+    --ms-tag-bg: theme('colors.neutral.100');
+    --ms-tag-bg-disabled: #9ca3af;
+    --ms-tag-color: theme('colors.neutral.800');
+    --ms-tag-color-disabled: theme('colors.neutral.800');
+    --ms-tag-radius: 0.25rem;
+    --ms-tag-py: 0.25rem;
+    --ms-tag-px: 0.5rem;
+    --ms-option-font-size: theme('fontSize.sm');
+    --ms-option-color-pointed: theme('colors.neutral.800');
+    --ms-option-bg-pointed: theme('colors.neutral.100');
+    --ms-option-bg-selected: theme('colors.neutral.100');
+    --ms-option-color-selected: theme('colors.neutral.800');
+    --ms-option-bg-disabled: theme('colors.neutral.DEFAULT');
+    --ms-option-color-disabled: #d1d5db;
+    --ms-option-bg-selected-pointed: theme('colors.neutral.100');
+    --ms-option-color-selected-pointed: theme('colors.neutral.800');
+    --ms-option-bg-selected-disabled: theme('colors.neutral.DEFAULT');
+    --ms-option-color-selected-disabled: #d1fae5;
+    --ms-option-py: 0.5rem;
+    --ms-option-px: 0.5rem;
+    --ms-ring-width: 0;
+    --ms-ring-color: transparent;
+    --ms-max-height: 100%;
+    --ms-tag-bg: theme('colors.neutral.100');
+    --ms-spinner-color: theme('colors.neutral.100');
+
+    box-shadow: 0 0.125rem 0.125rem rgba(28, 25, 23, 0.05);
+    min-width: 200px;
+    height: max-content;
+
+    &--is-error {
+        --ms-border-color: var(--danger) !important;
+    }
+
+    &--sm {
+        --ms-padding-y: 0.5rem;
+        --ms-padding-x: 0.5rem;
+        --ms-font-size: theme('fontSize.sm');
+    }
+
+    &--lg {
+        --ms-padding-y: 0.75rem;
+        --ms-padding-x: 1.25rem;
+        --ms-font-size: theme('fontSize.lg');
+    }
+
+    .multiselect {
+        &-wrapper {
+            i.fas.fa-sort {
+                position: absolute;
+                color: var(--ms-caret-color);
+                font-size: var(--ms-caret-size);
+                right: 1rem;
+            }
+        }
+
+        &-options {
+            display: flex;
+            gap: 0.25rem;
+            padding: 0.25rem;
+        }
+
+        &.is-active {
+            border-radius: 0.5rem;
+        }
+
+        &-option:has(.custom-search-input-wrapper) {
+            --ms-option-py: 0;
+            --ms-option-px: 0;
+            --ms-option-bg-pointed: theme('colors.neutral.DEFAULT');
+            position: relative;
+
+            &:hover {
+                background-color: theme('colors.neutral.DEFAULT');
+                @include tools.isDarkMode {
+                    background-color: theme('colors.neutral.200');
+                }
+            }
+
+            .is-pointed {
+                background-color: theme('colors.neutral.DEFAULT');
+                @include tools.isDarkMode {
+                    background-color: theme('colors.neutral.200');
+                }
+            }
+
+            @include tools.isDarkMode {
+                --ms-bg: theme('colors.neutral.100');
+                --ms-option-color-selected: theme('colors.neutral.500');
+                --ms-option-color-pointed: theme('colors.neutral.500');
+                --ms-option-bg-pointed: theme('colors.neutral.200');
+                --ms-option-bg-selected: theme('colors.neutral.200');
+                --ms-option-color-selected-pointed: theme('colors.neutral.800');
+                --ms-option-bg-pointed: theme('colors.neutral.200');
+            }
+        }
+
+        &-option.is-pointed,
+        .is-selected {
+            border-radius: 0.25rem;
+        }
+
+        &-dropdown {
+            background-color: var(--ms-bg);
+            color: theme('colors.neutral.800');
+            border-radius: 0.5rem;
+            border: 1px solid theme('colors.neutral.200');
+            box-shadow: 0 0.25rem 0.5rem rgba(41, 37, 36, 0.16);
+            max-height: 300px;
+            overflow-y: auto;
+            bottom: -0.25rem;
+        }
+
+        &-clear-icon {
+            margin-right: 1rem;
+        }
+
+        &-selected-label--item {
+            color: theme('colors.neutral.800');
+            font-size: theme('fontSize.base');
+        }
+
+        &-tag-remove-icon {
+            margin: 0 0.5rem 0 0.25rem;
+        }
+    }
+
+    .custom-search-input-wrapper {
+        display: flex;
+        justify-content: center;
+        padding: 0;
+        border-bottom: 1px solid theme('colors.neutral.100');
+        align-items: center;
+        width: 100%;
+        height: 100%;
+
+        .custom-search-input {
+            padding: 0.5rem 1rem 0.5rem 34px;
+            width: 100%;
+            height: 100%;
+            border: none;
+            background-color: theme('colors.neutral.DEFAULT');
+            color: theme('colors.neutral.400');
+            font-size: theme('fontSize.sm');
+            font-weight: 400;
+            letter-spacing: 0;
+            text-align: left;
+
+            &:focus {
+                outline: none;
+                border: none;
+            }
+
+            &__icon {
+                font-size: theme('fontSize.sm');
+                position: absolute;
+                left: 0.75rem;
+                color: theme('colors.neutral.400');
+            }
+        }
+    }
+}

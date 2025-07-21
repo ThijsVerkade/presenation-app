@@ -1,0 +1,12 @@
+{
+    "textarea": {
+        "placeholder": "Type here..."
+    },
+    "date-picker": {
+        "placeholder": "Select date"
+    },
+    "dialog": {
+        "cancel": "Cancel",
+        "confirm": "Confirm"
+    }
+}

@@ -1,0 +1,14 @@
+$component: 'c-dropdown';
+
+.#{$component} {
+    position: absolute;
+    display: flex;
+    gap: 0.25rem; // 4px
+    flex-direction: column;
+    z-index: 10;
+    // width: 287px;
+    background: var(--neutral-000);
+    border-radius: 0.5rem; // 8px
+    border: 0.0625rem solid var(--neutral-200); // 1px
+    box-shadow: 0 0.25rem 0.5rem 0 rgba(41, 37, 36, 0.16); // 4px 8px
+}

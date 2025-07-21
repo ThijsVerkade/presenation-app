@@ -1,0 +1,71 @@
+@use '../tools' as tools;
+
+$component: 'c-avatar';
+.#{$component} {
+    display: inline-block;
+
+    &--link {
+        cursor: pointer;
+    }
+
+    &__content {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: start;
+        background-size: cover;
+        background-position: center;
+        overflow: hidden;
+
+        &--small {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            position: relative;
+        }
+    }
+
+    &__border {
+        border: 2px solid var(--neutral-100);
+    }
+
+    &__default {
+        overflow: hidden;
+        background-color: var(--neutral-50);
+        border: 2px solid var(--neutral-100) !important;
+
+        img {
+            border-radius: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -34%);
+            max-width: 100%;
+            max-height: 80%;
+            object-fit: contain;
+        }
+    }
+
+    &__gradient {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: linear-gradient(180deg, rgba(245, 245, 244, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
+
+        @include tools.isDarkMode() {
+            background: linear-gradient(180deg, rgba(28, 25, 23, 0.5) 0%, rgba(68, 64, 60, 1) 100%);
+        }
+    }
+}

@@ -1,0 +1,57 @@
+$colorsLight: (
+    --neutral-000: #ffffff,
+    --neutral-50: #fafaf9,
+    --neutral-100: #f5f5f4,
+    --neutral-200: #e7e5e4,
+    --neutral-300: #d6d3d1,
+    --neutral-400: #a8a29e,
+    --neutral-500: #78716c,
+    --neutral-600: #57534e,
+    --neutral-700: #44403c,
+    --neutral-800: #292524,
+    --neutral-900: #1c1917,
+    --neutral-950: #0c0a09,
+    --primary: #2a2525,
+    --secondary: #ab377f,
+    --danger: #f25e5e,
+    --warning: #be8429,
+    --success: #59D173,
+    --body-color: var(--neutral-800),
+    --body-bg-color: var(--neutral-000),
+);
+
+$colorsDark: (
+    --neutral-000: #1c1917,
+    --neutral-50: #25211f,
+    --neutral-100: #292524,
+    --neutral-200: #44403c,
+    --neutral-300: #57534e,
+    --neutral-400: #78716c,
+    --neutral-500: #a8a29e,
+    --neutral-600: #d6d3d1,
+    --neutral-700: #e7e5e4,
+    --neutral-800: #f5f5f4,
+    --neutral-900: #fafaf9,
+    --neutral-950: #ffffff,
+    --primary: #f5f5f4,
+    --secondary: #ab377f,
+    --danger: #f25e5e,
+    --warning: #be8429,
+    --success: #59D173,
+    --body-color: var(--neutral-800),
+    --body-bg-color: var(--neutral-000),
+);
+
+@mixin apply-css-variables($map) {
+    @each $key, $value in $map {
+        #{$key}: #{$value};
+    }
+}
+
+@mixin applyLightColors() {
+    @include apply-css-variables($colorsLight);
+}
+
+@mixin applyDarkColors() {
+    @include apply-css-variables($colorsDark);
+}

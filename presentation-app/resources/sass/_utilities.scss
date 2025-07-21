@@ -1,0 +1,20 @@
+@use 'tools';
+
+.u-mask {
+    mask-image: linear-gradient(to bottom, #000 40%, transparent);
+}
+
+.u-mask-scrollfade-horizontal {
+    mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+}
+
+.md\:u-mask-scrollfade-vertically {
+    @include tools.break('md') {
+        mask-image: linear-gradient(to bottom, #000, #000 95%, transparent);
+    }
+}
+.u-prose {
+    & li > p {
+        margin: 0;
+    }
+}

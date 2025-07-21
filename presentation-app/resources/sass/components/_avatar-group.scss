@@ -1,0 +1,14 @@
+@use 'sass:math';
+
+$component: 'c-avatar-group';
+.#{$component} {
+    display: flex;
+    align-items: center;
+
+    .c-avatar {
+        margin-left: -0.5rem;
+        &:first-child {
+            margin-left: 0;
+        }
+    }
+}

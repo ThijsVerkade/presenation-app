@@ -1,0 +1,192 @@
+@use '../tools' as tools;
+
+$component: 'c-input';
+.#{$component} {
+    width: 100%;
+
+    &__addon {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        align-items: center;
+        box-shadow: 0 0.125rem 0.125rem #1c19170d;
+        background: var(--neutral-100);
+        border: 0.0625rem solid var(--neutral-300);
+        color: var(--neutral-800);
+        padding: 0.75rem 1rem;
+        max-height: 2.5rem;
+        font-size: theme('fontSize.sm');
+
+        &--addon-start {
+            border-radius: 0.5rem 0 0 0.5rem;
+            border-right: unset !important;
+        }
+
+        &--addon-end {
+            border-radius: 0 0.5rem 0.5rem 0;
+            border-left: unset !important;
+        }
+
+        &--button {
+            background: var(--neutral-000);
+            cursor: pointer;
+
+            i {
+                align-self: baseline;
+            }
+        }
+
+        &--has-error {
+            border-color: var(--danger) !important;
+        }
+    }
+
+    &__label {
+        font-size: theme('fontSize.sm');
+        color: var(--neutral-800);
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+
+    &::placeholder {
+        color: var(--neutral-400);
+    }
+
+    &[type='text'] {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &__container {
+        display: flex;
+
+        .is-readonly {
+            color: var(--neutral-400) !important;
+        }
+    }
+
+    &__input-container {
+        appearance: none;
+        margin: 0;
+        width: 100%;
+        opacity: 1;
+        border: 0.0625rem solid var(--neutral-300);
+        box-shadow: 0 0.125rem 0.125rem #1c19170d;
+        padding: 0.5rem 1rem;
+        min-height: 2.5rem;
+        max-height: 2.5rem;
+        background: var(--neutral-000);
+        border-radius: 0.5rem;
+        font-size: theme('fontSize.base');
+        font-family: theme('fontFamily.sans');
+        font-weight: 400;
+        color: var(--neutral-950);
+        align-items: center;
+        letter-spacing: 0;
+        text-align: left;
+        max-width: 100%;
+
+        display: inline-flex;
+        position: relative;
+        gap: 0.5rem;
+
+        @include tools.isDarkMode() {
+            border-color: var(--neutral-200);
+            background: var(--neutral-100);
+        }
+
+        &:focus-within {
+            border-color: var(--primary);
+            outline: none;
+
+            @include tools.isDarkMode() {
+                border-color: var(--neutral-500);
+            }
+        }
+
+        input {
+            background: transparent;
+
+            @include tools.isDarkMode() {
+                border-color: var(--neutral-900);
+            }
+
+            &::placeholder {
+                font-weight: 400;
+            }
+        }
+
+        &--is-button {
+            color: var(--neutral-400) !important;
+            font-size: theme('fontSize.sm');
+            height: 33px;
+            min-height: unset;
+            padding: 0.5rem;
+        }
+
+        &--has-clickable-icon {
+            padding-right: 0.25rem !important;
+        }
+
+        &--no-radius-left {
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+
+        &--no-radius-right {
+            border-radius: 0.5rem 0 0 0.5rem;
+        }
+
+        &--is-error {
+            border-color: var(--danger) !important;
+        }
+
+        &--is-disabled {
+            background: var(--neutral-100) !important;
+
+            input {
+                background: var(--neutral-100) !important;
+            }
+        }
+    }
+
+    &--relative {
+        position: relative;
+    }
+
+    &__icon {
+        color: var(--neutral-800);
+        font-size: theme('fontSize.sm');
+        font-weight: 300;
+        letter-spacing: 0;
+
+        &--has-error {
+            color: var(--danger) !important;
+        }
+
+        &--is-clickable {
+            cursor: pointer;
+            background: var(--neutral-100);
+            border-radius: 0.25rem;
+            padding: 0.5625rem;
+        }
+    }
+
+    &__text-append {
+        position: absolute;
+        right: 1rem;
+        color: var(--neutral-400);
+        font-size: theme('fontSize.xs');
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    &--md {
+        padding: 0.5rem;
+        font-size: theme('fontSize.sm');
+    }
+
+    &:focus {
+        outline: none;
+    }
+}

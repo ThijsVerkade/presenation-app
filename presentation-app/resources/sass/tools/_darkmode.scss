@@ -1,0 +1,11 @@
+@mixin isDarkMode() {
+    @media screen and (prefers-color-scheme: dark) {
+        body:not(.u-light) {
+            @content;
+        }
+    }
+
+    .u-dark & {
+        @content;
+    }
+}

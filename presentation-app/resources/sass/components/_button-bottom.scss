@@ -1,0 +1,10 @@
+$component: 'c-button-bottom';
+
+.#{$component} {
+   width: 2rem;
+   height: 2rem;
+   border-radius: 0.5rem;
+   border: none;
+   font-size: theme('fontSize.sm');
+   color: var(--neutral-800);
+}

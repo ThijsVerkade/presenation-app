@@ -1,0 +1,38 @@
+$component: 'c-pill';
+.#{$component} {
+    border-radius: 20px;
+    border: 1px solid var(--neutral-300);
+    opacity: 1;
+    color: var(--neutral-700);
+    font-size: theme('fontSize.sm');
+    font-weight: 400;
+    letter-spacing: 0;
+    text-align: center;
+    padding: 0 1rem;
+    cursor: pointer;
+    font-family: theme('fontFamily.sans');
+    display: inline-block;
+    line-height: 2rem;
+
+    &:has(input:focus-visible) {
+        outline: 2px solid var(--color-focus, var(--neutral-700));
+        outline-offset: 1px;
+    }
+
+    &:hover {
+        background-color: var(--neutral-100);
+        color: var(--neutral-700);
+    }
+
+    &--active {
+        color: var(--neutral-100);
+        background-color: var(--neutral-800);
+        border-color: var(--neutral-800);
+
+        &:hover {
+            background-color: var(--neutral-700);
+            border-color: var(--neutral-700);
+            color: var(--neutral-100);
+        }
+    }
+}

@@ -1,0 +1,26 @@
+$component: 'c-dropdown-menu';
+
+.#{$component} {
+    position: relative;
+    display: inline-block;
+
+    &__list {
+        display: flex;
+        gap: 0.25rem; // 4px
+        flex-direction: column;
+        padding: 0.25rem 0; // 4px 0
+        min-width: 280px;
+    }
+
+    &__content {
+        font-size: theme('fontSize.sm');
+        padding: 0 0.75rem;
+    }
+
+    &__drawer {
+        padding-bottom: 2rem;
+        display: flex;
+        gap: 0.25rem; // 4px
+        flex-direction: column;
+    }
+}

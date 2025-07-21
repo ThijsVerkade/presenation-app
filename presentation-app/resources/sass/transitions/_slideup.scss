@@ -1,0 +1,42 @@
+.slide-up-enter-active {
+    transition: all 800ms ease;
+    transition-delay: 100ms;
+}
+
+.slide-up-leave-active {
+    transition: all 500ms ease;
+}
+
+.slide-up-enter-from {
+    opacity: 0;
+
+    transition: all 800ms ease;
+    position: relative;
+    transform: translateY(120%);
+}
+
+.slide-up-leave-to {
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 0;
+    transition: all 800ms ease;
+    width: 100%;
+    transform: scale(0.6) translateY(-50%);
+}
+
+.t-slideup {
+    animation: fadeInUp 1s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(1rem);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

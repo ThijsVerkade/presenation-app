@@ -1,0 +1,285 @@
+@use '../tools' as tools;
+
+$component: 'c-btn';
+.#{$component} {
+    cursor: pointer;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    text-align: center;
+    position: relative;
+    font-size: theme('fontSize.sm');
+    font-weight: 500;
+    padding: 0 1rem;
+    letter-spacing: 0;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(41, 37, 36, 0.1);
+    opacity: 1;
+    line-height: 2.5rem;
+    min-height: 2.5rem;
+    background-color: theme('colors.neutral.DEFAULT');
+    overflow: hidden;
+    white-space: nowrap;
+
+    &--light {
+        background-color: theme('colors.neutral.DEFAULT');
+        border: none;
+        color: theme('colors.neutral.800');
+        box-shadow: none;
+        @include tools.isDarkMode() {
+            background-color: theme('colors.neutral.200');
+            color: theme('colors.neutral.900');
+        }
+    }
+
+    &--warning {
+        background-color: theme('colors.warning') !important;
+        color: theme('colors.white') !important;
+    }
+
+    &--danger {
+        color: theme('colors.danger') !important;
+    }
+
+    &--dark {
+        color: #f5f5f4;
+        background-color: #292524;
+
+        &:hover {
+            background-color: #44403c;
+        }
+
+        @include tools.isDarkMode() {
+            background-color: #1c1917;
+
+            &:hover {
+                background-color: #44403c;
+            }
+        }
+    }
+
+    &:focus {
+        outline: 2px solid var(--color-focus, var(--neutral-700));
+        outline-offset: 1px;
+    }
+
+    &--default {
+        background-color: theme('colors.neutral.DEFAULT');
+        border: 1px solid var(--neutral-200);
+        color: theme('colors.neutral.800');
+
+        &:hover {
+            background-color: theme('colors.neutral.100');
+        }
+
+        &.#{$component}--disabled,
+        &[disabled] {
+            background-color: theme('colors.neutral.100');
+            color: theme('colors.neutral.400');
+        }
+
+        @include tools.isDarkMode() {
+            background-color: theme('colors.neutral.200');
+            color: theme('colors.neutral.900');
+
+            &:hover {
+                background-color: theme('colors.neutral.300');
+                color: theme('colors.neutral.800');
+            }
+
+            &.#{$component}--disabled {
+                background-color: theme('colors.neutral.300');
+                color: theme('colors.neutral.400');
+            }
+        }
+    }
+
+    &--primary {
+        background-color: theme('colors.primary');
+        color: theme('colors.neutral.50');
+
+        &:hover:not(.#{$component}--loading) {
+            background-color: theme('colors.neutral.700');
+        }
+
+        &.#{$component}--disabled {
+            background-color: theme('colors.neutral.700');
+        }
+
+        @include tools.isDarkMode() {
+            background-color: theme('colors.neutral.800');
+            color: theme('colors.neutral.100');
+
+            &:hover:not(.#{$component}--loading) {
+                background-color: theme('colors.neutral.700');
+            }
+        }
+    }
+
+    &--track {
+        background-color: var(--neutral-100);
+        border: 1px solid var(--neutral-200);
+        box-shadow: none;
+
+        @include tools.break('md') {
+            background-color: transparent;
+            border: 1px solid transparent;
+        }
+
+        &:hover {
+            background-color: var(--neutral-200);
+            border: 1px solid var(--neutral-300);
+        }
+
+        &.is-active {
+            background-color: var(--neutral-800);
+            border-color: var(--neutral-800);
+            color: var(--neutral-100);
+
+            &:hover {
+                background-color: var(--neutral-700);
+            }
+        }
+    }
+    &--danger {
+        color: var(--danger);
+        background-color: var(--neutral-100);
+
+        &:hover:not(.#{$component}--loading) {
+            background-color: var(--neutral-200);
+        }
+    }
+
+    &--disabled {
+        cursor: not-allowed;
+        color: theme('colors.neutral.400');
+    }
+
+    &--loading {
+        cursor: default;
+    }
+
+    &--round {
+        font-weight: 300;
+        box-shadow: none;
+        border-radius: 1.25rem;
+
+        &[disabled] {
+            opacity: 1;
+            cursor: default;
+        }
+
+        &.#{$component}--fluid {
+            padding: 0;
+            font-size: theme('fontSize.lg');
+            width: 3rem;
+            height: 3rem;
+            border-radius: 3rem;
+        }
+
+        &.#{$component}--default {
+            padding: 0;
+            height: 2.5rem;
+            min-width: 2.5rem;
+            border-radius: 2.5rem;
+            font-size: theme('fontSize.base');
+            border: none;
+
+            &:hover {
+                background-color: theme('colors.neutral.100');
+            }
+        }
+
+        &.#{$component}--sm {
+            padding: 0;
+            height: 2rem;
+            min-height: 2rem;
+            min-width: 2rem;
+            border-radius: 2rem;
+            font-size: theme('fontSize.xs');
+        }
+
+        &.#{$component}--xs {
+            padding: 0;
+            height: 1.5rem;
+            min-height: 1.5rem;
+            line-height: 1.5rem;
+            min-width: 1.5rem;
+            border-radius: 1.5rem;
+            font-size: theme('fontSize.xs');
+        }
+    }
+
+    &--fluid {
+        padding: 0 4rem;
+        width: 100%;
+    }
+
+    &--sm {
+        padding: 0 0.5rem;
+        font-size: theme('fontSize.xs');
+        line-height: 2rem;
+        min-height: 2rem;
+    }
+
+    &__loading {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        background: repeating-linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0.1) 0%,
+            rgba(255, 255, 255, 0.2) 50%,
+            rgba(255, 255, 255, 0.1) 100%
+        );
+        background-size: 200% auto;
+        background-position: 0 100%;
+        animation: gradient 2s infinite;
+        animation-fill-mode: forwards;
+        animation-timing-function: linear;
+        opacity: 0;
+        transition: 100ms ease all;
+
+        .#{$component}--loading & {
+            opacity: 1;
+        }
+    }
+
+    &__label {
+        transition: 200ms ease all;
+        white-space: nowrap;
+
+        .#{$component}--loading & {
+            opacity: 0;
+            transform: translateY(20%);
+        }
+    }
+
+    &__loader {
+        opacity: 0;
+        display: block;
+        margin-top: 1rem;
+        transition: 200ms ease all;
+
+        .#{$component}--loading & {
+            opacity: 1;
+            margin-top: 0;
+        }
+    }
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}

@@ -1,0 +1,38 @@
+$component: 'c-profile-box';
+.#{$component} {
+    background-color: var(--neutral-100);
+    width: fit-content;
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 18px;
+
+    &.is-active.is-selectable,
+    &.is-selectable:hover {
+        background: var(--neutral-800);
+        color: var(--neutral-100);
+    }
+
+    &__image {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    &__name {
+        font-size: theme('fontSize.sm');
+        line-height: 0rem;
+        font-weight: 500;
+        color: var(--neutral-800);
+        font-family: theme('fontFamily.sans');
+        padding-right: 0.5rem;
+
+        .#{$component}.is-active &,
+        .#{$component}:focus &,
+        .#{$component}.is-selectable:hover & {
+            color: var(--neutral-100);
+        }
+    }
+}

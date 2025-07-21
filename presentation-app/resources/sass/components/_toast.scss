@@ -1,0 +1,91 @@
+@use '../tools' as tools;
+
+$component: 'c-toast';
+.#{$component} {
+    font-family: theme('fontFamily.sans');
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 1rem;
+    gap: 1rem;
+
+    @include tools.break('md') {
+        width: 398px;
+    }
+
+    @include tools.isDarkMode() {
+        border: 1px solid #d6d3d1;
+    }
+
+    &.fade-in-up-enter-active {
+        animation: fadeInUp 0.2s cubic-bezier(0.34, 1.56, 0.8, 1);
+    }
+
+    &.fade-in-up-leave-active {
+        animation: fadeInUp 0.2s ease reverse;
+    }
+
+    &__icon {
+        font-size: 1.5rem;
+    }
+
+    &--warning {
+        background: linear-gradient(135deg, #57473c 0%, #292524 100%);
+
+        .#{$component}__icon {
+            color: #ff8e02;
+        }
+    }
+
+    &--success {
+        background: linear-gradient(135deg, #3c5744 0%, #292524 100%);
+
+        .#{$component}__icon {
+            color: #1dcd14;
+        }
+    }
+
+    &--error {
+        background: linear-gradient(135deg, #573c3c 0%, #292524 100%);
+
+        .#{$component}__icon {
+            color: #ff0000;
+        }
+    }
+
+    &__close {
+        cursor: pointer;
+        min-height: 1.5rem;
+        min-width: 1.5rem;
+        color: #f5f5f4;
+        background-color: #44403c;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+    }
+
+    &__message-container {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    &__description {
+        font-size: theme('fontSize.xs');
+        color: #a8a29e;
+    }
+
+    &__message {
+        font-size: theme('fontSize.sm');
+        color: #f5f5f4;
+        font-weight: 600;
+    }
+}

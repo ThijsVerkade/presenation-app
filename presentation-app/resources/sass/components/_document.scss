@@ -1,0 +1,72 @@
+$component: 'c-document';
+
+.#{$component} {
+    width: 100%;
+    height: 100%;
+    gap: 1rem;
+    font-size: theme('fontSize.sm');
+    border: 1px solid var(--neutral-200);
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    overflow: hidden;
+
+    &__content {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    &__icon {
+        font-size: theme('fontSize.base');
+        flex: 0 0 auto;
+    }
+
+    &__info {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &__title {
+        font-size: theme('fontSize.sm');
+        line-height: 1;
+        font-weight: 600;
+    }
+
+    &__meta {
+        font-size: theme('fontSize.xs');
+        color: var(--neutral-500);
+    }
+
+    &__actions {
+        margin-left: auto;
+        gap: 0.25rem;
+        visibility: hidden;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+
+        .#{$component}:hover & {
+            visibility: visible;
+        }
+    }
+
+    &__loading {
+        margin-top: 0.5rem;
+    }
+
+    &__loading-bar {
+        width: 100%;
+        height: 0.25rem;
+        background-color: var(--neutral-100);
+        border-radius: 0.25rem;
+    }
+
+    &__loading-bar-progress {
+        height: 100%;
+        background-color: var(--neutral-800);
+        border-radius: 0.25rem;
+        transition: width 0.2s ease-in-out;
+    }
+}

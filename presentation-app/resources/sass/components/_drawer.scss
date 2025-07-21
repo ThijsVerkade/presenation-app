@@ -1,0 +1,128 @@
+@use '../tools' as tools;
+
+$component: 'c-drawer';
+$maxHeight: calc(100vh - 7em);
+
+.#{$component} {
+    position: fixed;
+    transition: transform 0.3s ease-in-out;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+
+    &__drawer-container {
+        position: absolute;
+        padding: 0.5rem;
+        top: 0;
+        transition: all 400ms ease;
+        overflow-y: auto; // add scroll when content height exceeds container height
+
+        .#{$component}--left & {
+            left: 0;
+            bottom: 0;
+            transform: translateX(1%);
+        }
+
+        .#{$component}--left.drawer-transition-enter-from &,
+        .#{$component}--left.drawer-transition-leave-to & {
+            transform: translateX(-100%);
+        }
+
+        .#{$component}--right & {
+            right: 0;
+            bottom: 0;
+            transform: translateX(-1%);
+        }
+
+        .#{$component}--right.drawer-transition-enter-from &,
+        .#{$component}--right.drawer-transition-leave-to & {
+            transform: translateX(100%);
+        }
+
+        .#{$component}--bottom & {
+            bottom: 0;
+            left: 0;
+            right: 0;
+            top: auto;
+            transform: translateY(1%);
+            padding: 0;
+        }
+
+        .#{$component}--bottom.drawer-transition-enter-from &,
+        .#{$component}--bottom.drawer-transition-leave-to & {
+            transform: translateY(100%);
+        }
+
+        .#{$component}--bottom.#{$component}--is-mobile & {
+            max-height: $maxHeight;
+        }
+
+        .#{$component}--left.#{$component}--is-mobile,
+        .#{$component}--right.#{$component}--is-mobile {
+            width: 100%;
+            min-width: 100%;
+            max-width: 100%;
+        }
+    }
+
+    &__drawer {
+        position: relative;
+        border: 1px solid var(--neutral-100);
+        border-radius: 1.5rem;
+        box-shadow: 0 2px 44px rgba(0, 0, 0, 0.5);
+        background-color: var(--neutral-000);
+        height: 100%;
+        width: 100%;
+        overflow: auto;
+
+        .#{$component}--left &,
+        .#{$component}--right & {
+            min-width: 300px;
+            max-width: 40vw;
+        }
+
+        .#{$component}--left & {
+            left: 0;
+            box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .#{$component}--right & {
+            right: 0;
+            box-shadow: -2px 0px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .#{$component}--bottom & {
+            bottom: 0;
+            box-shadow: 0 2rem 8rem rgba(0, 0, 0, 0.3);
+            border-radius: 1.5rem 1.5rem 0 0;
+        }
+    }
+
+    &__close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        cursor: pointer;
+    }
+
+    &__backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        transition: opacity 0.3s ease-in-out;
+        background: transparent;
+
+        @include tools.break('md') {
+            background: rgba(255, 255, 255, 0.75);
+        }
+
+        .#{$component}.drawer-transition-enter-from &,
+        .#{$component}.drawer-transition-leave-to & {
+            opacity: 0;
+        }
+    }
+}

@@ -1,0 +1,12 @@
+$component: 'c-input-tag';
+.#{$component} {
+    &__content {
+        height: 5.5rem;
+        border: 1px solid var(--neutral-300) !important;
+        font-size: theme('fontSize.sm');
+    }
+
+    .v3ti .v3ti-tag {
+        background: var(--neutral-800);
+    }
+}

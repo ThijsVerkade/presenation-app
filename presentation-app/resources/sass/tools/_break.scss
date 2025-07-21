@@ -1,0 +1,5 @@
+@mixin break($size) {
+    @media (min-width: theme('screens.#{$size}')) {
+        @content;
+    }
+}

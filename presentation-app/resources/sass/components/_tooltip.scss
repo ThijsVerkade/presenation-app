@@ -1,0 +1,24 @@
+@use '../tools' as tools;
+
+$component: 'c-tooltip';
+.#{$component} {
+    background-color: var(--neutral-800);
+    color: var(--neutral-100);
+    border-radius: 0.25rem;
+    padding: 0 0.5rem;
+    font-size: theme('fontSize.xs');
+    font-family: theme('fontFamily.body');
+    font-weight: 500;
+    position: absolute;
+    z-index: 9999;
+    transition:
+        opacity 0.2s ease,
+        visibility 0s;
+    visibility: hidden;
+    opacity: 0;
+
+    @include tools.isDarkMode() {
+        background-color: var(--neutral-800);
+        color: var(--neutral-100);
+    }
+}

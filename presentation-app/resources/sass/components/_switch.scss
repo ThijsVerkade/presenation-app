@@ -1,0 +1,99 @@
+@use '../tools' as tools;
+
+$component: 'c-switch';
+.#{$component} {
+    font-family: theme('fontFamily.sans');
+    max-width: 380px;
+
+    &__container {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+
+        &--with-description {
+            gap: 30px;
+            align-items: start;
+            flex-direction: row-reverse;
+            justify-content: space-between;
+        }
+
+        &--border-bottom {
+            border-bottom: 1px solid var(--neutral-200);
+            padding-bottom: 1rem;
+        }
+    }
+
+    &--with-border {
+        border: 1px solid var(--neutral-200);
+        border-radius: 0.5rem;
+        padding: 1rem;
+    }
+
+    &__label {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+
+        .#{$component}__text {
+            color: var(--neutral-800);
+            font-weight: 500;
+            font-size: theme('fontSize.sm');
+        }
+
+        .#{$component}__description {
+            color: var(--neutral-400);
+            font-size: theme('fontSize.xs');
+            font-weight: 400;
+            line-height: 1rem;
+        }
+    }
+
+    &__switch {
+        min-width: 40px;
+        height: 24px;
+        background-color: var(--neutral-200);
+        border-radius: 12px;
+        border: 1px solid var(--neutral-200);
+        cursor: pointer;
+        position: relative;
+        transition: background-color 0.3s;
+
+        @include tools.isDarkMode() {
+            background-color: var(--neutral-100);
+        }
+
+        &--on {
+            background-color: var(--neutral-800);
+
+            @include tools.isDarkMode() {
+                background-color: var(--neutral-200);
+            }
+
+            .#{$component}__switch-toggle {
+                transform: translateX(14px);
+
+                @include tools.isDarkMode() {
+                    background-color: var(--neutral-950);
+                }
+            }
+        }
+    }
+
+    &__switch-toggle {
+        width: 16px;
+        height: 16px;
+        background-color: var(--neutral-000);
+        border-radius: 50%;
+        position: absolute;
+        transition: transform 0.3s;
+        top: 3px;
+        left: 4px;
+        box-shadow:
+            0 2px 4px rgba(0, 0, 0, 0.2),
+            inset 0px -1px 3px rgba(0, 0, 0, 0.05);
+
+        @include tools.isDarkMode() {
+            background-color: var(--neutral-400);
+        }
+    }
+}

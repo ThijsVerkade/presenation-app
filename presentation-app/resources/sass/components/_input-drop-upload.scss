@@ -1,0 +1,55 @@
+$component: 'c-input-drop-upload';
+.#{$component} {
+    cursor: pointer;
+    display: block;
+
+    &__input {
+        background: rgba(255,255,255,0);
+        overflow: hidden;
+        position: fixed;
+        width: 1px;
+        height: 1px;
+        z-index: -1;
+        opacity: 0;
+    }
+
+    &__dropzone {
+        background: var(--neutral-100);
+        border: 1px dashed var(--neutral-300);
+        border-radius: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 2rem;
+        transition: 300ms ease all;
+        height: 100%;
+
+        .#{$component}.is-small & {
+            padding: 1rem;
+        }
+
+        &.is-active {
+            background: var(--neutral-200);
+            border: 2px dashed var(--primary-400);
+        }
+
+        &:hover {
+            background: var(--neutral-300);
+        }
+    }
+
+    &__icon {
+        display: block;
+        font-size: 3em;
+        color: var(--neutral-400);
+
+        .#{$component}.is-small & {
+            font-size: 2em;
+        }
+    }
+
+    &__example {
+        width: 6rem;
+    }
+}

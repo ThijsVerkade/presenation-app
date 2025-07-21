@@ -1,0 +1,35 @@
+$component: 'c-badge';
+
+a.#{$component}:hover,
+button.#{$component}:hover {
+    background: var(--neutral-800);
+}
+
+a.#{$component},
+button.#{$component} {
+    cursor: pointer;
+    &:hover {
+        background: var(--neutral-800);
+    }
+}
+
+.#{$component} {
+    background: var(--neutral-700);
+    border-radius: 0.25rem;
+    padding: 0.25rem 0.5rem;
+    width: fit-content;
+    display: inline-flex;
+    align-items: center;
+    height: 1.5rem;
+
+    &--active {
+        background: var(--neutral-800);
+    }
+
+    &__label {
+        color: var(--neutral-100);
+        font-size: theme('fontSize.xs');
+        line-height: 1rem;
+        font-family: theme('fontFamily.sans');
+    }
+}

@@ -1,0 +1,87 @@
+@use '../tools' as tools;
+
+$component: 'c-dialog';
+.#{$component} {
+    display: flex;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+
+    &__dialog--default {
+        @include tools.break('md') {
+            max-width: 990px;
+        }
+    }
+
+    &__dialog--md {
+        @include tools.break('md') {
+            max-width: 610px;
+        }
+    }
+
+    &__dialog--sm {
+        @include tools.break('md') {
+            max-width: 385px;
+        }
+    }
+
+    &__dialog {
+        background: var(--neutral-000);
+        position: relative;
+        z-index: 30;
+        display: inline-table;
+        max-height: 100%;
+        min-height: 100px;
+        overflow-y: auto;
+        border-radius: 1rem;
+        border: 1px solid var(--neutral-200);
+        box-shadow: 0 2px 8px rgba(41, 37, 36, 0.1);
+
+        transition: all 200ms ease;
+        margin: 1rem;
+
+        .#{$component}.dialog-transition-enter-from &,
+        .#{$component}.dialog-transition-leave-to & {
+            opacity: 0;
+            transform: scale(0.95) translateY(48%);
+        }
+
+        .#{$component}--alert & {
+            max-width: theme('screens.xs');
+        }
+
+        &--dark {
+            box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.22);
+            opacity: 0.95;
+            background: linear-gradient(180deg, #1c1917 0%, #292524 100%);
+            color: var(--neutral-700);
+            border: none;
+        }
+    }
+
+    &__close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        cursor: pointer;
+    }
+}
+
+@media screen and (max-width: theme('screens.xl')) {
+    .#{$component}__dialog--default {
+        width: 90%;
+    }
+
+    .#{$component}__dialog--lg {
+        width: 90%;
+    }
+
+    .#{$component}__dialog--md {
+        width: 90%;
+    }
+}

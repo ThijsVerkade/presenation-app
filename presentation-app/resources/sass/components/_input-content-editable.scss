@@ -1,0 +1,23 @@
+$component: 'c-content-editable';
+.#{$component}{
+    border-radius: .25rem;
+    padding: .25rem;
+    margin-left: 0rem;
+    border: 1px solid transparent;
+    max-width: 100%;
+
+    &[contenteditable=true]:empty:before {
+        content: attr(placeholder);
+        color: var(--neutral-400);
+        display: inline-block; /* For Firefox */
+        cursor: text;
+    }
+
+    .is-error & {
+        border-color: var(--color-danger)
+    }
+
+    &:focus-visible {
+        outline: 1px solid var(--neutral-200);
+    }
+}

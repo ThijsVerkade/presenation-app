@@ -1,0 +1,17 @@
+$component: 'c-overlay';
+.#{$component} {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 19;
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.8);
+    transition: all 200ms ease;
+
+    .dialog-transition-enter-from &,
+    .dialog-transition-leave-to & {
+        opacity: 0;
+    }
+}
