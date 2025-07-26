@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('order');
             $table->string('name');
+            $table->string('slug')->unique();
             $table->string('width');
             $table->string('height');
             $table->timestamps();
@@ -31,7 +32,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('slide_id')->constrained()->cascadeOnDelete();
             $table->foreignId('display_id')->constrained()->cascadeOnDelete();
-            $table->string('media_path');
             $table->timestamps();
 
             $table->unique(['slide_id', 'display_id']);

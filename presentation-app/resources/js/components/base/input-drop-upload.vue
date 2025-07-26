@@ -25,7 +25,6 @@
 <script setup lang="ts">
 import axios from 'axios';
 import { ref } from 'vue';
-import { mediaService } from '@services/mediaService';
 import type { UploadFileProps } from '@/types/media';
 import Mux from '@helpers/mux';
 import type { MuxAssetResponse, MuxVideoResponse } from '@interfaces/input-drop-upload';
@@ -39,7 +38,6 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  icon: 'fal fa-folder-open',
   label_upload: '',
   accept: 'image/jpeg,image/jpg,image/png,video/mp4',
   type: 'document',
@@ -54,7 +52,7 @@ const accepts = {
 }
 
 const emit = defineEmits<{
-  (e: 'uploadedImage', file: UploadFileProps): void
+  (e: 'uploaded', file: UploadFileProps): void
   (e: 'uploadedVideo', videoUpload: MuxVideoResponse): void
 }>();
 
@@ -68,46 +66,24 @@ const onChange = async () => {
   if (!fileRef.value?.files?.[0]) return;
 
   loading.value = true;
-  try {
-    const file = fileRef.value.files[0];
-    let fileType = 'document';
+    var fileType;
+    try {
+        const file = fileRef.value.files[0];
+        // if (file.type.startsWith('image/')) {
+        //     fileType = 'image';
+        // } else if (file.type.startsWith('video/')) {
+        //     fileType = 'video';
+        // } else {
+        //     throw new Error('Unsupported file type');
+        // }
 
-    // Determine file type based on MIME type
-    if (file.type.startsWith('image/')) {
-      fileType = 'image';
-    } else if (file.type.startsWith('video/')) {
-        preparing.value = true;
-        let videoUpload: MuxAssetResponse = await Mux.store(file, {
-            progress: progress => {
-                uploadProgress.value = parseInt(progress.toFixed(0));
-            },
-        });
+        emit('uploaded', file);
 
-        const asset = await getVideoStatus(videoUpload.asset_id);
-
-        preparing.value = false;
-
-        emit('uploadedVideo', asset);
-        return asset;
+        if (fileRef.value) fileRef.value.value = '';
+    } finally {
+        loading.value = false;
     }
-
-    const uploadedFile = await mediaService.upload(file, fileType);
-
-    emit('uploadedImage', uploadedFile);
-
-    if (fileRef.value) fileRef.value.value = '';
-  } finally {
-    loading.value = false;
-  }
 };
-
-const getVideoStatus = async (asset_id) => {
-    while (true) {
-        const response = await axios.get(`/api/mux/asset/${asset_id}`);
-
-        return response.data;
-    }
-}
 
 const dragover = (event: DragEvent) => {
   event.preventDefault();

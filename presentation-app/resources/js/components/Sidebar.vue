@@ -2,7 +2,7 @@
 import Button from "@components/base/button.vue";
 import ImageCardWithStatus from "@components/base/ImageCardWithStatus.vue";
 import Draggable from 'vuedraggable';
-import { router } from '@inertiajs/vue3';
+import {Link, router} from '@inertiajs/vue3';
 import {route} from "ziggy-js";
 import {createApiCall} from "@helpers/apiHelper";
 import {ref} from "vue";
@@ -12,6 +12,10 @@ const props = defineProps<{
         id: number;
         is_active: boolean;
     }>;
+    slide?: {
+        id: number;
+        is_active: boolean;
+    };
 }>();
 
 const slides = ref([...props.slides]);
@@ -53,13 +57,16 @@ const onDragEnd = (event) => {
                 variant="secondary"
                 size="md"
                 label="Display"
-                @click="" />
+                @click=""
+                :href="route('admin.displays')"/>
             <Button
+                v-if="slide"
                 icon="fal fa-play"
                 variant="primary"
                 size="md"
                 label="Play"
-                @click="" />
+                :href="route('admin.slides.activate', { slide: slide.id })"
+                />
         </div>
         <div class="u-mt-4 u-border-t u-border-neutral-200 u-pt-4 u-px-6">
             <h2 class="u-text-neutral-400 u-text-sm u-font-medium u-pb-4" >Slides</h2>
@@ -74,7 +81,13 @@ const onDragEnd = (event) => {
                 <template #item="{ element }">
                     <div class="u-flex u-pb-4">
                         <i class="fas fa-grip-vertical u-text-neutral-300 u-w-3 u-h-4 u-mr-2 drag-handle u-my-auto u-cursor-pointer" />
-                        <ImageCardWithStatus :statusLabel="element.is_active ? 'active' : 'draft'"/>
+                        <Link :href="route('admin.slides', {slide: element.id})" class="u-flex-grow" :preserve-state="false" :preserve-scroll="true">
+                            <ImageCardWithStatus :statusLabel="element.is_active ? 'active' : 'draft'"
+                                                 class="u-cursor-pointer"
+                                                 :class="slide?.id === element.id ? 'u-border-neutral-700' : ''"
+
+                            />
+                        </Link>
                     </div>
                 </template>
             </Draggable>

@@ -7,46 +7,56 @@
             variant="secondary"
             size="md"
             label="Manage presentation"
-            @click="() => router.visit(route('admin.presentations.index'))" />
+            :href="route('admin.slides', {slide: slide.id})" />
         </div>
         <div
             class="u-w-full u-flex u-gap-2 u-mb-4">
-            <ScreenCard
-                v-for="element in displays"
-                :key="element.id"
-                :name="element.name"
-                :width="element.width"
-                :height="element.height"
-                :main-item="element.order === 1"
-            >
-                <template #footer>
-                    <div class="u-text-[12px] u-text-neutral-400">
-                        {{ `https://carux.local/display/${element.name}` }}
+            <Link  v-for="element in displays.data" :href="`/d/${element.slug}`" target="_blank">
+                <ScreenCard
+                    :key="element.id"
+                    :name="element.name"
+                    :width="element.width"
+                    :height="element.height"
+                    :main-item="element.order === 1"
+                >
+                    <template #footer>
+                        <div class="u-text-[12px] u-text-neutral-400">
+                            {{ `https://carux.local/d/${element.slug}` }}
 
-                    </div>
-                </template>
-            </ScreenCard>
+                        </div>
+                    </template>
+                </ScreenCard>
+            </Link>
         </div>
     </Base>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import Base from "@layouts/base.vue";
 import ScreenCard from "@components/base/ScreenCard.vue";
 import { ref } from "vue";
 import Button from "@components/base/button.vue";
-const displays = ref([
-    { id: 1, name: 'Main Display', width: '1920', height: '1080', order: 1 },
-    { id: 2, name: 'Secondary Display', width: '1280', height: '720', order: 2 },
-]);
-import { router } from '@inertiajs/vue3';
+import {Link, router} from '@inertiajs/vue3';
+import {route} from "ziggy-js";
 
-// const props = defineProps<{
-//     slides: Array<{
-//         id: number,
-//         is_active: boolean,
-//     }>
-// }>();
+const props = defineProps<{
+    slide: {
+        id: number;
+        is_active: boolean;
+    },
+    displays: {
+        data: {
+            id: number;
+            name: string;
+            width: number;
+            height: number;
+            order: number;
+            asset_id? : number;
+            media? : string;
+        }[]
+    };
+}>();
+console.log(props)
 </script>
 
 <style scoped>

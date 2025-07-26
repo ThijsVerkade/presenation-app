@@ -3,15 +3,27 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\DisplaySlideResource;
+use App\Models\Display;
 use App\Models\Slide;
+use App\Models\SlideDisplayAsset;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class SlideController extends Controller
 {
-    public function edit(Slide $slide)
+    public function edit(Request $request, Slide $slide)
     {
+        $displays = Display::with(['slideDisplayAssets' =>
+            fn ($query) => $query->where('slide_id', $slide->id)]
+        )->get();
+
         return Inertia::render('Admin/Slides/Edit', [
-            'slide' => $slide->load('assets.display')
+            'displays' => DisplaySlideResource::collection($displays),
+            'slide' => $slide,
+            'slides' => Slide::orderBy('order')->get(),
         ]);
     }
 
@@ -32,6 +44,6 @@ class SlideController extends Controller
             Slide::query()->where('id', $id)->update(['order' => $index]);
         }
 
-        return redirect()->back();
+        return new JsonResource('Slide created successfully.');
     }
 }

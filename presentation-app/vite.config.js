@@ -61,6 +61,7 @@ export default defineConfig({
             '@modules': path.resolve(__dirname, 'resources/js/modules'),
             '@interfaces': path.resolve(__dirname, 'resources/js/types'),
             '@composables': path.resolve(__dirname, 'resources/js/composables'),
+            '@services': path.resolve(__dirname, 'resources/js/services'),
             '@apps': path.resolve(__dirname, 'resources/js/modules/apps')
         }
     },

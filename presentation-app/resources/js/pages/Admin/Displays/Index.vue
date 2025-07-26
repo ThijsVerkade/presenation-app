@@ -6,25 +6,27 @@
             v-model="displays"
             handle=".drag-handle"
             item-key="id"
-            class="u-w-full u-flex u-gap-2 u-mb-4"
+            class="u-w-full u-flex u-flex-wrap u-gap-2 u-mb-4"
             :animation="200"
             @end="onDragEnd"
         >
             <template #item="{ element }">
-                <ScreenCard
-                    :key="element.id"
-                    :name="element.name"
-                    :width="element.width"
-                    :height="element.height"
-                    :main-item="element.order == 1"
-                    @click="() => editDisplay(element)"
-                >
-                    <template #footer>
-                        <div class="u-mt-4 u-flex u-justify-center u-items-center">
-                            <i class="fas fa-grip-dots u-text-neutral-300 u-w-3 u-h-4 drag-handle u-my-auto u-cursor-pointer" />
-                        </div>
-                    </template>
-                </ScreenCard>
+                <div class="u-w-1/4">
+                    <ScreenCard
+                        :key="element.id"
+                        :name="element.name"
+                        :width="element.width"
+                        :height="element.height"
+                        :main-item="element.order == 1"
+                        @click="() => editDisplay(element)"
+                    >
+                        <template #footer>
+                            <div class="u-mt-4 u-flex u-justify-center u-items-center">
+                                <i class="fas fa-grip-dots u-text-neutral-300 u-w-3 u-h-4 drag-handle u-my-auto u-cursor-pointer" />
+                            </div>
+                        </template>
+                    </ScreenCard>
+                </div>
             </template>
         </Draggable>
 
@@ -74,7 +76,7 @@
 </template>
 
 <script setup lang="ts">
-import {computed, ref} from "vue";
+import {ref} from "vue";
 import Base from "@layouts/base.vue";
 import Button from "@components/base/button.vue";
 import ScreenCard from "@components/base/ScreenCard.vue";
@@ -84,7 +86,6 @@ import Dialog from "@components/base/dialog.vue";
 import {createApiCall} from "@helpers/apiHelper";
 import { router } from '@inertiajs/vue3';
 import {route} from "ziggy-js";
-import Sidebar from "@components/Sidebar.vue";
 const apiCall = createApiCall();
 
 

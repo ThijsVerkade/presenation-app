@@ -1,6 +1,6 @@
 <template>
     <div
-        class="u-relative u-w-[248px] u-bg-white u-rounded-xl u-border u-border-neutral-200 u-p-4 u-flex u-flex-col u-items-center u-shadow-sm u-cursor-pointer hover:u-shadow-md"
+        class="u-relative u-w-full u-bg-white u-rounded-xl u-border u-border-neutral-200 u-p-4 u-flex u-flex-col u-items-center u-shadow-sm u-cursor-pointer hover:u-shadow-md"
     >
         <Badge label="isMain" v-if="isMain"/>
 

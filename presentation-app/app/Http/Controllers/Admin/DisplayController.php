@@ -7,6 +7,7 @@ use App\Http\Requests\DisplayRequest;
 use App\Models\Display;
 use App\Models\Slide;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class DisplayController extends Controller
@@ -26,11 +27,12 @@ class DisplayController extends Controller
         Display::query()->create([
             'order' => Display::query()->max('order') + 1,
             'name' => $validated['name'],
+            'slug' => Str::slug($validated['name']),
             'width' => $validated['width'],
             'height' => $validated['height'],
         ]);
 
-        return redirect()->route('admin.displays');
+        return redirect()->back();
     }
 
     public function update(DisplayRequest $request, $id)
@@ -42,10 +44,11 @@ class DisplayController extends Controller
         $display->update([
             'order' => $validated['order'] ?? $display->order,
             'name' => $validated['name'],
+            'slug' => Str::slug($validated['name']),
             'width' => $validated['width'],
             'height' => $validated['height'],
         ]);
 
-        return redirect()->route('admin.displays');
+        return redirect()->back();
     }
 }
