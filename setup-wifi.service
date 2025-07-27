@@ -1,10 +1,11 @@
 [Unit]
-Description=Run WiFi Setup Script at Boot
+Description=Enable wlan0 before hostapd
+Before=hostapd.service
 After=network.target
 
 [Service]
 Type=oneshot
-ExecStart=/bin/bash /home/thijs.verkade/presentation-app/setup.sh
+ExecStart=/bin/bash /home/pi/presentation-app/setup.sh
 RemainAfterExit=true
 
 [Install]
