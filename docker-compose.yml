@@ -9,6 +9,7 @@ services:
       - "6001:6001"
     volumes:
         - ./public/media:/var/www/html/public/media
+        - ./database/database.sqlite:/var/www/html/database/database.sqlite
     restart: unless-stopped
     command: >
         sh -c "php artisan migrate --force && php-fpm"
