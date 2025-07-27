@@ -78,7 +78,7 @@ onMounted(() => {
         .listen('SlideActivated', (event: any) => {
             currentSlide.value = event.slide;
 
-            const url = event.media_paths?.['main'] || null;
+            const url = event.media_paths?.[props.display.data.slug] || null;
             console.log(url)
             mediaUrl.value = url;
             mediaType.value = getMediaType(url);

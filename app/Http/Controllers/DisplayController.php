@@ -16,7 +16,7 @@ class DisplayController extends Controller
         if ($slide !== null) {
             $display = Display::with(['slideDisplayAssets' =>
                     fn($query) => $query->where('slide_id', $slide->id)]
-            )->first();
+            )->where('slug', $slug)->first();
         } else {
             $display = Display::where('slug', $slug)->firstOrFail();
         }

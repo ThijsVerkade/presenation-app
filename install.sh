@@ -31,6 +31,19 @@ echo "📡 Setting up access point..."
 echo "🌐 Configuring optional external access..."
 ./enable-external-access.sh
 
+# 🛠 Ensuring database.sqlite is ready...
+mkdir -p database
+if [ -d database/database.sqlite ]; then
+  echo "❌ Found a directory instead of a database file. Fixing..."
+  rm -rf database/database.sqlite
+fi
+if [ ! -f database/database.sqlite ]; then
+  echo "📄 Creating database file..."
+  touch database/database.sqlite
+fi
+chmod 777 database
+chmod 666 database/database.sqlite
+
 # ▶️ Run Docker image loading and container start
 echo "🚀 Starting Docker app..."
 ./docker-start.sh

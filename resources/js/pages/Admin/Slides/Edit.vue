@@ -174,7 +174,11 @@ const handleUploaded = (displayId: number, file: UploadFileProps) => {
         'Failed to update display'
     );
 
-    router.reload();
+    router.visit(window.location.href, {
+        replace: true,
+        preserveScroll: false,
+        preserveState: false,
+    })
 };
 
 const deleteSlide = async () => {
@@ -188,7 +192,11 @@ const deleteSlide = async () => {
         // TODO: actual delete logic
     }
 
-    router.reload();
+    router.visit(window.location.href, {
+        replace: true,
+        preserveScroll: false,
+        preserveState: false,
+    })
 };
 
 const deleteSlideAsset = async (assetId: number) => {
@@ -208,6 +216,10 @@ const deleteSlideAsset = async (assetId: number) => {
         'Failed to update display'
     );
 
-    router.reload();
+    router.visit(window.location.href, {
+        replace: true,
+        preserveScroll: false,
+        preserveState: false,
+    })
 };
 </script>

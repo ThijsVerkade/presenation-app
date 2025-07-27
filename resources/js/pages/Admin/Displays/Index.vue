@@ -166,7 +166,11 @@ const saveDisplay = () => {
             'Failed to create display',
         )
     }
-    router.reload();
+    router.visit(window.location.href, {
+        replace: true,
+        preserveScroll: false,
+        preserveState: false,
+    })
     isDialogVisible.value = false;
 }
 </script>

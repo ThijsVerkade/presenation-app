@@ -29,7 +29,11 @@ const createSlide = () => {
         'Display updated successfully',
         'Failed to update display',
     );
-    router.reload();
+    router.visit(window.location.href, {
+        replace: true,
+        preserveScroll: false,
+        preserveState: false,
+    })
 };
 
 const onDragEnd = (event) => {
