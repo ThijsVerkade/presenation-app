@@ -6,10 +6,12 @@ WORKDIR /var/www/html
 
 COPY . .
 
-# Install Laravel dependencies and setup
-RUN php artisan key:generate \
- && chmod -R 775 storage bootstrap/cache \
- && chown -R www-data:www-data .
+# Generate Laravel key
+RUN php artisan key:generate
+
+# Ensure full ownership and permissions AFTER all writes
+RUN chown -R www-data:www-data storage bootstrap/cache \
+ && chmod -R ug+rw storage bootstrap/cache
 
 COPY --chmod=755 /docker/services/laravel-reverb /etc/services.d/laravel-reverb
 
