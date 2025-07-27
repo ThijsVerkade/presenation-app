@@ -5,7 +5,7 @@ After=network.target
 
 [Service]
 Type=oneshot
-ExecStart=/bin/bash /home/thijs.verkade/presentation-app/setup.sh
+ExecStart=/home/thijs.verkade/presentation-app/setup.sh
 RemainAfterExit=true
 
 [Install]
