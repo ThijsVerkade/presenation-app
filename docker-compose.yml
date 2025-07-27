@@ -8,5 +8,6 @@ services:
       - "8080:8080"
       - "6001:6001"
     volumes:
-        - .:/var/www/html
+        - ./public/media:/var/www/html/public/media
+        - ./database:/var/www/html/database
     restart: unless-stopped
