@@ -49,9 +49,8 @@ Requires=docker.service
 
 [Service]
 Type=simple
-EnvironmentFile=/etc/presentation.env
-ExecStart=\${APP_DIR}/docker-start.sh
-WorkingDirectory=\${APP_DIR}
+ExecStart=${APP_DIR}/docker-start.sh
+WorkingDirectory=${APP_DIR}
 Restart=always
 
 [Install]

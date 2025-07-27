@@ -30,6 +30,4 @@ else
   export COMPOSE_DOCKER_CLI_BUILD=1
 
   sudo docker-compose up -d
-  sudo docker-compose exec $CONTAINER_NAME composer install
-  sudo docker-compose exec $CONTAINER_NAME php artisan migrate --force
 fi
