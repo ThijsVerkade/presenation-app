@@ -2,6 +2,7 @@ FROM serversideup/php:8.3-fpm-nginx
 
 USER root
 
+# Install GD and EXIF extensions
 RUN apt-get update && \
     apt-get install -y libjpeg-dev libpng-dev libwebp-dev libfreetype6-dev && \
     docker-php-ext-configure gd \
@@ -15,12 +16,14 @@ WORKDIR /var/www/html
 
 COPY . .
 
-# Generate Laravel key
 RUN php artisan key:generate
 
-# Ensure full ownership and permissions AFTER all writes
 RUN chown -R www-data:www-data storage bootstrap/cache \
  && chmod -R ug+rw storage bootstrap/cache
+
+RUN touch database/database.sqlite && \
+    chown -R www-data:www-data database && \
+    chmod -R 775 database
 
 COPY --chmod=755 /docker/services/laravel-reverb /etc/services.d/laravel-reverb
 
