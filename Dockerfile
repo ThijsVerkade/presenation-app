@@ -21,10 +21,6 @@ RUN php artisan key:generate
 RUN chown -R www-data:www-data storage bootstrap/cache \
  && chmod -R ug+rw storage bootstrap/cache
 
-RUN touch database/database.sqlite && \
-    chown -R www-data:www-data database && \
-    chmod -R 775 database
-
 COPY --chmod=755 /docker/services/laravel-reverb /etc/services.d/laravel-reverb
 
 ENV AUTORUN_ENABLED="true" \
