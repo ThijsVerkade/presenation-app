@@ -2,10 +2,9 @@ FROM serversideup/php:8.3-fpm-nginx
 
 USER root
 
-# Install GD and EXIF
-RUN apk add --no-cache libjpeg-turbo-dev libpng-dev freetype-dev && \
-    docker-php-ext-configure gd --with-freetype --with-jpeg && \
-    docker-php-ext-install gd exif
+RUN apk add --no-cache \
+    php8-gd \
+    php8-exif
 
 WORKDIR /var/www/html
 
