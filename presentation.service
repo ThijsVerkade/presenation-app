@@ -1,0 +1,13 @@
+[Unit]
+Description=Start Laravel Presentation App with Docker
+After=network.target docker.service
+Requires=docker.service
+
+[Service]
+Type=simple
+ExecStart=/home/thijs.verkade/presentation-app/docker-start.sh
+WorkingDirectory=/home/thijs.verkade/presentation-app
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

@@ -39,23 +39,9 @@ echo "🚀 Starting Docker app..."
 echo "📄 Creating environment file for systemd..."
 echo "APP_DIR=$APP_DIR" | sudo tee /etc/presentation.env > /dev/null
 
-# 🛠 Create systemd service unit
-echo "🛠 Creating systemd service unit..."
-sudo tee /etc/systemd/system/presentation.service > /dev/null <<EOF
-[Unit]
-Description=Start Laravel Presentation App with Docker
-After=network.target docker.service
-Requires=docker.service
-
-[Service]
-Type=simple
-ExecStart=${APP_DIR}/docker-start.sh
-WorkingDirectory=${APP_DIR}
-Restart=always
-
-[Install]
-WantedBy=multi-user.target
-EOF
+# 🛠 Copy and enable Laravel auto-start service
+echo "🛠 Installing Laravel auto-start service..."
+sudo cp presentation.service /etc/systemd/system/
 
 # Enable and start the systemd service
 sudo systemctl daemon-reexec
