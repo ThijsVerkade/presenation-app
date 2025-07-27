@@ -10,3 +10,5 @@ services:
     volumes:
         - ./public/media:/var/www/html/public/media
     restart: unless-stopped
+    command: >
+        sh -c "php artisan migrate --force && php-fpm"
