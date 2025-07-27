@@ -65,7 +65,7 @@ sudo systemctl daemon-reexec
 sudo systemctl daemon-reload
 sudo systemctl enable presentation.service
 sudo systemctl enable setup-wifi.service
-sudo systemctl start setup-wifi.service
+sudo systemctl start presentation.service
 
 # ✅ Mark as installed
 sudo touch /etc/presentation-installed.flag
