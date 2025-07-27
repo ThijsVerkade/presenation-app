@@ -9,20 +9,16 @@ if [ -f /etc/presentation-installed.flag ]; then
   exit 0
 fi
 
-# Mount point of the USB
-BASE_DIR="TODO"
+# Set base directory where the repo was cloned
+BASE_DIR="/home/thijs.verkade"
+APP_DIR="$BASE_DIR/presentation-app"
 
-# Check base dir is todo
-if [ "$BASE_DIR" == "TODO" ]; then
-  echo "❌ Base directory not set. Please set BASE_DIR variable in the script."
+# Ensure the app directory exists
+if [ ! -d "$APP_DIR" ]; then
+  echo "❌ App directory '$APP_DIR' not found. Make sure the repository is cloned correctly."
   exit 1
 fi
 
-# Copy project to home directory
-cp -r "$BASE_DIR/presentation-app" /home/thijs.verkade/presentation-app
-
-# Run WiFi setup
-cd /home/thijs.verkade/presentation-app
 # 🐳 Install Docker
 echo "🐳 Installing Docker..."
 curl -fsSL https://get.docker.com -o get-docker.sh
@@ -31,7 +27,7 @@ sudo usermod -aG docker thijs.verkade
 sudo systemctl enable docker
 
 # Make scripts executable
-cd /home/thijs.verkade/presentation-app
+cd "$APP_DIR"
 chmod +x setup-access-point.sh enable-external-access.sh docker-start.sh
 
 # 📡 Setup WiFi access point
@@ -46,19 +42,36 @@ echo "🌐 Configuring optional external access..."
 echo "🚀 Starting Docker app..."
 ./docker-start.sh
 
-# 🛠 Copy and enable Laravel auto-start service
-echo "🛠 Installing Laravel auto-start service..."
-cp presentation.service /etc/systemd/system/
-systemctl daemon-reexec
-systemctl enable presentation.service
-systemctl start presentation.service
+# 🛠 Create environment file for systemd
+echo "📄 Creating environment file for systemd..."
+sudo bash -c "echo APP_DIR=$APP_DIR > /etc/presentation.env"
 
-# 🔄 Enable USB auto-reinstall for future
-echo "🔧 Enabling USB auto-install for future devices..."
-cp "$BASE_DIR/usb-autoinstall.service" /etc/systemd/system/
-systemctl daemon-reexec
-systemctl enable usb-autoinstall.service
+# 🛠 Create systemd service unit
+echo "🛠 Creating systemd service unit..."
+sudo bash -c "cat > /etc/systemd/system/presentation.service" <<EOF
+[Unit]
+Description=Start Laravel Presentation App with Docker
+After=network.target docker.service
+Requires=docker.service
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/presentation.env
+ExecStart=\${APP_DIR}/docker-start.sh
+WorkingDirectory=\${APP_DIR}
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# Enable and start the systemd service
+sudo systemctl daemon-reexec
+sudo systemctl daemon-reload
+sudo systemctl enable presentation.service
+sudo systemctl start presentation.service
 
 # ✅ Mark as installed
-touch /etc/presentation-installed.flag
+sudo touch /etc/presentation-installed.flag
 
+echo "✅ Setup complete."

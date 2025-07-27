@@ -24,11 +24,12 @@ if docker ps -aq -f name=$CONTAINER_NAME | grep -q .; then
 else
   # ▶️ Start with docker-compose
   echo "🚀 Starting Docker container with docker-compose..."
-  cd /home/thijs.verkade/presentation-app
 
   # Enable BuildKit universally
   export DOCKER_BUILDKIT=1
   export COMPOSE_DOCKER_CLI_BUILD=1
 
   sudo docker-compose up -d
+  sudo docker-compose exec $CONTAINER_NAME composer install
+  sudo docker-compose exec $CONTAINER_NAME php artisan migrate --force
 fi
