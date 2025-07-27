@@ -56,6 +56,10 @@ echo "APP_DIR=$APP_DIR" | sudo tee /etc/presentation.env > /dev/null
 echo "🛠 Installing Laravel auto-start service..."
 sudo cp presentation.service /etc/systemd/system/
 
+# 🛠 Installing WiFi setup auto-start service
+echo "🛠 Installing WiFi setup service..."
+sudo cp setup-wifi.service /etc/systemd/system/
+
 # Enable and start the systemd service
 sudo systemctl daemon-reexec
 sudo systemctl daemon-reload

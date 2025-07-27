@@ -166,12 +166,12 @@ const saveDisplay = () => {
             'Failed to create display',
         )
     }
+    isDialogVisible.value = false;
     router.visit(window.location.href, {
         replace: true,
         preserveScroll: false,
         preserveState: false,
     })
-    isDialogVisible.value = false;
 }
 </script>
 
