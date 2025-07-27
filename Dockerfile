@@ -2,9 +2,14 @@ FROM serversideup/php:8.3-fpm-nginx
 
 USER root
 
-RUN apk add --no-cache \
-    php8-gd \
-    php8-exif
+RUN apt-get update && \
+    apt-get install -y libjpeg-dev libpng-dev libwebp-dev libfreetype6-dev && \
+    docker-php-ext-configure gd \
+        --with-freetype \
+        --with-jpeg \
+        --with-webp && \
+    docker-php-ext-install gd exif && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /var/www/html
 
