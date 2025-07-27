@@ -9,25 +9,18 @@ if [ -f /etc/presentation-installed.flag ]; then
   exit 0
 fi
 
-# Set base directory where the repo was cloned
-BASE_DIR="/home/thijs.verkade"
-APP_DIR="$BASE_DIR/presentation-app"
-
-# Ensure the app directory exists
-if [ ! -d "$APP_DIR" ]; then
-  echo "❌ App directory '$APP_DIR' not found. Make sure the repository is cloned correctly."
-  exit 1
-fi
+# Detect APP_DIR as current directory
+APP_DIR="$(pwd)"
+APP_USER="$(whoami)"
 
 # 🐳 Install Docker
 echo "🐳 Installing Docker..."
 curl -fsSL https://get.docker.com -o get-docker.sh
 sh get-docker.sh
-sudo usermod -aG docker thijs.verkade
+sudo usermod -aG "$APP_USER" "$APP_USER"
 sudo systemctl enable docker
 
 # Make scripts executable
-cd "$APP_DIR"
 chmod +x setup-access-point.sh enable-external-access.sh docker-start.sh
 
 # 📡 Setup WiFi access point
@@ -44,11 +37,11 @@ echo "🚀 Starting Docker app..."
 
 # 🛠 Create environment file for systemd
 echo "📄 Creating environment file for systemd..."
-sudo bash -c "echo APP_DIR=$APP_DIR > /etc/presentation.env"
+echo "APP_DIR=$APP_DIR" | sudo tee /etc/presentation.env > /dev/null
 
 # 🛠 Create systemd service unit
 echo "🛠 Creating systemd service unit..."
-sudo bash -c "cat > /etc/systemd/system/presentation.service" <<EOF
+sudo tee /etc/systemd/system/presentation.service > /dev/null <<EOF
 [Unit]
 Description=Start Laravel Presentation App with Docker
 After=network.target docker.service
