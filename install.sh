@@ -3,12 +3,6 @@ set -e
 
 echo "🚀 Starting presentation system setup..."
 
-# ✅ Skip install if already done
-if [ -f /etc/presentation-installed.flag ]; then
-  echo "🟡 System already installed. Skipping setup."
-  exit 0
-fi
-
 # Detect APP_DIR as current directory
 APP_DIR="$(pwd)"
 APP_USER="$(whoami)"
