@@ -5,8 +5,7 @@ Wants=network-pre.target
 
 [Service]
 Type=oneshot
-ExecStart=/usr/sbin/rfkill unblock wifi
-ExecStart=/usr/sbin/rfkill unblock all
+ExecStart=/bin/bash -c "/usr/sbin/rfkill unblock wifi && /usr/sbin/rfkill unblock all"
 
 [Install]
 WantedBy=multi-user.target
