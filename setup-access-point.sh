@@ -65,6 +65,7 @@ sudo mv /etc/dnsmasq.conf /etc/dnsmasq.conf.orig || true
 sudo tee /etc/dnsmasq.conf > /dev/null <<EOF
 interface=wlan0
 dhcp-range=${DHCP_RANGE_START},${DHCP_RANGE_END},255.255.255.0,24h
+address=/#/192.168.4.1
 EOF
 
 echo "📶 Unblocking Wi-Fi via rfkill..."

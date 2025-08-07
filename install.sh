@@ -25,6 +25,35 @@ echo "📡 Setting up access point..."
 echo "🌐 Configuring optional external access..."
 ./enable-external-access.sh
 
+echo "🌐 Configuring captive portal redirection in lighttpd..."
+sudo apt update
+sudo apt install -y lighttpd
+sudo tee /etc/lighttpd/lighttpd.conf > /dev/null <<EOF
+server.modules = (
+  "mod_access",
+  "mod_alias",
+  "mod_redirect"
+)
+
+server.document-root        = "/var/www/html"
+server.port                 = 80
+server.username             = "www-data"
+server.groupname            = "www-data"
+server.errorlog             = "/var/log/lighttpd/error.log"
+
+\$HTTP["host"] =~ ".*" {
+  url.redirect = (
+    "^/generate_204$" => "http://192.168.4.1:8080",
+    "^/connecttest.txt$" => "http://192.168.4.1:8080",
+    "^/hotspot-detect.html$" => "http://192.168.4.1:8080",
+    "^/$" => "http://192.168.4.1:8080"
+  )
+}
+EOF
+
+# Restart lighttpd to apply changes
+sudo systemctl restart lighttpd
+
 # 🔧 Ensuring hostapd starts reliably
 echo "🔧 Ensuring hostapd is configured correctly and starts reliably..."
 
