@@ -22,6 +22,7 @@ RUN chown -R www-data:www-data storage bootstrap/cache \
  && chmod -R ug+rw storage bootstrap/cache
 
 COPY --chmod=755 /docker/services/laravel-reverb /etc/services.d/laravel-reverb
+COPY --chmod=755 /docker/services/web /etc/services.d/web
 
 ENV AUTORUN_ENABLED="true" \
     PHP_OPCACHE_ENABLE="1"
