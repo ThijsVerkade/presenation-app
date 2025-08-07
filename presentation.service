@@ -5,8 +5,8 @@ Requires=docker.service
 
 [Service]
 Type=simple
-ExecStart=/home/carux/presentation-app/docker-start.sh
-WorkingDirectory=/home/carux/presentation-app
+ExecStart=/home/thijs.verkade/presentation-app/docker-start.sh
+WorkingDirectory=/home/thijs.verkade/presentation-app
 Restart=always
 
 [Install]
