@@ -53,6 +53,18 @@ sudo systemctl restart hostapd
 
 echo "✅ hostapd now correctly configured and synchronized with wlan0"
 
+# 🌍 Set regulatory domain at boot
+echo "REGDOMAIN=GB" | sudo tee /etc/default/crda > /dev/null
+sudo iw reg set GB
+
+# 🕒 Optionally delay hostapd startup if timing is still flaky
+# You can increase to sleep 5 if needed
+echo "📄 Adding optional startup delay to hostapd..."
+sudo tee /etc/systemd/system/hostapd.service.d/startup-delay.conf > /dev/null <<EOF
+[Service]
+ExecStartPre=/bin/sleep 2
+EOF
+
 # 🛠 Ensuring database.sqlite is ready...
 mkdir -p database
 if [ -d database/database.sqlite ]; then
