@@ -60,51 +60,11 @@ sudo cp presentation.service /etc/systemd/system/
 echo "🛠 Installing WiFi setup service..."
 sudo cp setup-wifi.service /etc/systemd/system/
 
-# 🛡️ Creating unblock-wifi script and service...
-echo "🛡️ Creating /usr/local/bin/unblock-wifi.sh..."
-sudo tee /usr/local/bin/unblock-wifi.sh > /dev/null <<'EOF'
-#!/bin/bash
-set -e
-
-echo "⏳ Waiting for wlan0 to become available..."
-
-for i in {1..10}; do
-  if ip link show wlan0 > /dev/null 2>&1; then
-    echo "✅ wlan0 detected"
-    /usr/sbin/rfkill unblock wifi
-    /usr/sbin/rfkill unblock all
-    exit 0
-  fi
-  sleep 1
-done
-
-echo "❌ wlan0 not found after 10 seconds. Skipping unblock."
-exit 1
-EOF
-
-sudo chmod +x /usr/local/bin/unblock-wifi.sh
-
-echo "🛡️ Creating /etc/systemd/system/unblock-wifi.service..."
-sudo tee /etc/systemd/system/unblock-wifi.service > /dev/null <<EOF
-[Unit]
-Description=Unblock Wi-Fi after wlan0 initializes
-After=multi-user.target
-Before=hostapd.service
-
-[Service]
-Type=oneshot
-ExecStart=/usr/local/bin/unblock-wifi.sh
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
 # Enable and start the systemd service
 sudo systemctl daemon-reexec
 sudo systemctl daemon-reload
 sudo systemctl enable presentation.service
 sudo systemctl enable setup-wifi.service
-sudo systemctl enable unblock-wifi.service
 sudo systemctl start presentation.service
 
 # ✅ Mark as installed
