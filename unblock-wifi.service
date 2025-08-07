@@ -1,11 +1,13 @@
 [Unit]
-Description=Unblock Wi-Fi before networking
-Before=network-pre.target
-Wants=network-pre.target
+Description=Unblock Wi-Fi after wlan0 is ready
+After=sys-subsystem-net-devices-wlan0.device
+Before=hostapd.service
 
 [Service]
 Type=oneshot
-ExecStart=/bin/bash -c "/usr/sbin/rfkill unblock wifi && /usr/sbin/rfkill unblock all"
+ExecStart=/usr/sbin/rfkill unblock wifi
+ExecStartPost=/usr/sbin/rfkill unblock all
+ConditionPathExists=/sys/class/net/wlan0
 
 [Install]
 WantedBy=multi-user.target
