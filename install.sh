@@ -60,11 +60,28 @@ sudo cp presentation.service /etc/systemd/system/
 echo "🛠 Installing WiFi setup service..."
 sudo cp setup-wifi.service /etc/systemd/system/
 
+# Blacklist acer-wmi just in case
+echo "blacklist acer-wmi" | sudo tee -a /etc/modprobe.d/blacklist.conf
+
+sudo bash -c 'cat > /etc/systemd/system/unblock-wifi.service <<EOF
+[Unit]
+Description=Unblock WiFi on boot
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/rfkill unblock wifi
+
+[Install]
+WantedBy=multi-user.target
+EOF'
+
 # Enable and start the systemd service
 sudo systemctl daemon-reexec
 sudo systemctl daemon-reload
 sudo systemctl enable presentation.service
 sudo systemctl enable setup-wifi.service
+sudo systemctl enable unblock-wifi.service
 sudo systemctl start presentation.service
 
 # ✅ Mark as installed
