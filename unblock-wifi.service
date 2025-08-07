@@ -1,0 +1,12 @@
+[Unit]
+Description=Unblock Wi-Fi before networking
+Before=network-pre.target
+Wants=network-pre.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/rfkill unblock wifi
+ExecStart=/usr/sbin/rfkill unblock all
+
+[Install]
+WantedBy=multi-user.target

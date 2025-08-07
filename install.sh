@@ -60,11 +60,16 @@ sudo cp presentation.service /etc/systemd/system/
 echo "🛠 Installing WiFi setup service..."
 sudo cp setup-wifi.service /etc/systemd/system/
 
+# 🛠 Installing WiFi setup auto-start service
+echo "🛡️ Setting up unblock-wifi.service..."
+sudo cp unblock-wifi.service /etc/systemd/system/
+
 # Enable and start the systemd service
 sudo systemctl daemon-reexec
 sudo systemctl daemon-reload
 sudo systemctl enable presentation.service
 sudo systemctl enable setup-wifi.service
+sudo systemctl enable unblock-wifi.service
 sudo systemctl start presentation.service
 
 # ✅ Mark as installed
