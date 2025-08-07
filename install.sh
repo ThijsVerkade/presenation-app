@@ -31,6 +31,34 @@ echo "📡 Setting up access point..."
 echo "🌐 Configuring optional external access..."
 ./enable-external-access.sh
 
+# 🔧 Ensuring hostapd starts reliably
+echo "🔧 Ensuring hostapd is configured correctly and starts reliably..."
+
+# ✅ Ensure hostapd uses the correct config file
+sudo sed -i '/^#*DAEMON_CONF/d' /etc/default/hostapd
+echo 'DAEMON_CONF="/etc/hostapd/hostapd.conf"' | sudo tee -a /etc/default/hostapd > /dev/null
+
+# ✅ Add country code to hostapd.conf (insert only if missing)
+if ! grep -q '^country_code=' /etc/hostapd/hostapd.conf; then
+  sudo sed -i '1i country_code=GB\nieee80211d=1' /etc/hostapd/hostapd.conf
+fi
+
+# ✅ Add systemd override to wait for wlan0
+echo "⏳ Creating systemd override for hostapd to wait for wlan0..."
+sudo mkdir -p /etc/systemd/system/hostapd.service.d
+sudo tee /etc/systemd/system/hostapd.service.d/wait-for-wlan0.conf > /dev/null <<EOF
+[Unit]
+After=sys-subsystem-net-devices-wlan0.device
+Requires=sys-subsystem-net-devices-wlan0.device
+EOF
+
+# ✅ Reload systemd and restart hostapd
+sudo systemctl daemon-reexec
+sudo systemctl daemon-reload
+sudo systemctl restart hostapd
+
+echo "✅ hostapd now correctly configured and synchronized with wlan0"
+
 # 🛠 Ensuring database.sqlite is ready...
 mkdir -p database
 if [ -d database/database.sqlite ]; then
