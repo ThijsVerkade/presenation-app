@@ -28,5 +28,6 @@ fi
 
 # Bring up Wi-Fi interface
 echo "📶 Bringing up wlan0..."
+rfkill unblock wifi
 rfkill unblock all
 ip link set wlan0 up
