@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Display;
 use App\Models\SlideDisplayAsset;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -25,7 +26,7 @@ class SlideResource extends JsonResource
             'id' => $this->id,
             'is_active' => $this->is_active,
             'order' => $this->order,
-            'first_media' => $mediaUrl
+            'first_media' => $slideAsset->display->order <= 1 ? $mediaUrl : null
         ];
     }
 

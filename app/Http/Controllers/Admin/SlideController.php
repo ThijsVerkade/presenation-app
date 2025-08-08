@@ -19,7 +19,7 @@ class SlideController extends Controller
     {
         $displays = Display::with(['slideDisplayAssets' =>
             fn ($query) => $query->where('slide_id', $slide->id)]
-        )->get();
+        )->orderBy('order')->get();
 
         return Inertia::render('Admin/Slides/Edit', [
             'displays' => DisplaySlideResource::collection($displays),
