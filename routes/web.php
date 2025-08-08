@@ -21,6 +21,7 @@ Route::post('/admin/slides', [SlideController::class, 'store'])->name('admin.sli
 Route::post('/admin/reorder/slides', [SlideController::class, 'reorder'])->name('admin.slides.reorder');
 Route::get('/admin/slides/{slide:id}/activate', [SlideActivationController::class, 'index'])->name('admin.slides.activate');
 Route::get('/admin/slides/{slide:id}', [SlideController::class, 'edit'])->name('admin.slides');
+Route::delete('/admin/slides/{slide:id}', [SlideController::class, 'destroy'])->name('admin.slides.destroy');
 
 Route::get('/admin/displays', [DisplayController::class, 'index'])->name('admin.displays');
 Route::post('/admin/displays', [DisplayController::class, 'store'])->name('admin.displays.store');

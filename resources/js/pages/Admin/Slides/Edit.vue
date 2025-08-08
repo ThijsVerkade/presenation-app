@@ -192,14 +192,16 @@ const deleteSlide = async () => {
     });
 
     if (result) {
-        // TODO: actual delete logic
+        apiCall(
+            'delete',
+            route('admin.slides.destroy', { id: props.slide.id }),
+            {},
+            'Slide deleted successfully',
+            'Failed to delete slide'
+        );
     }
 
-    router.visit(window.location.href, {
-        replace: true,
-        preserveScroll: false,
-        preserveState: false,
-    })
+    router.visit(route('admin.displays'));
 };
 
 const deleteSlideAsset = async (assetId: number) => {

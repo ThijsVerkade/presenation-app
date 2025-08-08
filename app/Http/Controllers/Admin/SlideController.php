@@ -11,6 +11,7 @@ use App\Models\SlideDisplayAsset;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
@@ -47,5 +48,23 @@ class SlideController extends Controller
         }
 
         return new JsonResponse('Slide created successfully.');
+    }
+
+    public function destroy(int $id)
+    {
+        DB::transaction(function () use ( $id){
+            $slide = Slide::findOrFail($id);
+
+            $slide->slideDisplayAssets()->each(function ($asset) {
+                $asset->clearMediaCollection('slides');
+                $asset->delete();
+            });
+
+            $slide->delete();
+        });
+
+        return response()->json([
+            'message' => 'Slide deleted successfully.',
+        ]);
     }
 }
