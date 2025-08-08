@@ -1,5 +1,5 @@
 <template>
-    <Base :slides="slides" :slide="slide">
+    <Base :slides="slides" :slide="slide" :displays="displays.data">
         <div class="u-gap-2 u-ml-auto u-flex u-justify-end">
             <Select
                 :autocomplete="false"
@@ -15,8 +15,8 @@
             <Button icon="fal fa-trash-alt" @click="deleteSlide()" />
         </div>
 
-        <h1 class="u-text-sm u-font-normal u-text-neutral-800 u-mb-5 u-mt-0">{{ firstDisplay.name }}</h1>
-        <div class="u-h-[500px]">
+        <h1 v-if="firstDisplay" class="u-text-sm u-font-normal u-text-neutral-800 u-mb-5 u-mt-0">{{ firstDisplay.name }}</h1>
+        <div v-if="firstDisplay" class="u-h-[500px]">
             <div
                 v-if="firstDisplay.media"
                 class="u-relative u-bg-neutral-50 u-border u-border-neutral-200 u-rounded-[8px]"

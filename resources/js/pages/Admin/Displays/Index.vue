@@ -1,5 +1,5 @@
 <template>
-    <Base :slides="slides">
+    <Base :slides="slides" :displays="displays">
         <h1 class="u-text-sm u-font-normal u-text-neutral-800 u-mb-5 ">Displays</h1>
 
         <Draggable

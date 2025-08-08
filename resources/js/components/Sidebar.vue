@@ -5,7 +5,10 @@ import Draggable from 'vuedraggable';
 import {Link, router} from '@inertiajs/vue3';
 import {route} from "ziggy-js";
 import {createApiCall} from "@helpers/apiHelper";
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
+import { useToast } from '@composables/useToast';
+
+const { toastError } = useToast();
 
 const props = defineProps<{
     slides: Array<{
@@ -16,6 +19,15 @@ const props = defineProps<{
         id: number;
         is_active: boolean;
     };
+    displays: {
+        id: number;
+        name: string;
+        slug: string;
+        width: number;
+        height: number;
+        order: number;
+        media?: string;
+    }[];
 }>();
 
 const slides = ref([...props.slides]);
@@ -46,6 +58,12 @@ const onDragEnd = (event) => {
         'Failed to update display order',
     );
 };
+
+onMounted(() => {
+    if (props.displays.length === 0) {
+        toastError("You need at least one display before you can add slides. Please create a display first.");
+    }
+})
 
 </script>
 
@@ -100,6 +118,7 @@ const onDragEnd = (event) => {
             <div class="u-border-t u-border-neutral-200 u-flex-1"></div>
             <div class="u-flex-1">
                 <Button
+                    :disabled="displays.length === 0"
                     icon="fal fa-plus"
                     label="Add slide"
                     variant="default"
