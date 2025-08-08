@@ -8,6 +8,7 @@ use App\Http\Resources\SlideResource;
 use App\Models\Display;
 use App\Models\Slide;
 use App\Models\SlideDisplayAsset;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
@@ -45,6 +46,6 @@ class SlideController extends Controller
             Slide::query()->where('id', $id)->update(['order' => $index]);
         }
 
-        return new JsonResource('Slide created successfully.');
+        return new JsonResponse('Slide created successfully.');
     }
 }
