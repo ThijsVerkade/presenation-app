@@ -11,10 +11,11 @@ import { useToast } from '@composables/useToast';
 const { toastError } = useToast();
 
 const props = defineProps<{
-    slides: Array<{
+    slides: {
         id: number;
         is_active: boolean;
-    }>;
+        first_media?: string;
+    }[];
     slide?: {
         id: number;
         is_active: boolean;
@@ -105,6 +106,7 @@ onMounted(() => {
                         <i class="fas fa-grip-vertical u-text-neutral-300 u-w-3 u-h-4 u-mr-2 drag-handle u-my-auto u-cursor-pointer" />
                         <Link :href="route('admin.slides', {slide: element.id})" class="u-flex-grow" :preserve-state="false" :preserve-scroll="true">
                             <ImageCardWithStatus :statusLabel="element.is_active ? 'active' : 'draft'"
+                                                 :imageUrl="element.first_media"
                                                  class="u-cursor-pointer"
                                                  :class="slide?.id === element.id ? 'u-border-neutral-700' : ''"
 

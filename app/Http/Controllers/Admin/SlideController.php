@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\DisplaySlideResource;
+use App\Http\Resources\SlideResource;
 use App\Models\Display;
 use App\Models\Slide;
 use App\Models\SlideDisplayAsset;
@@ -23,7 +24,7 @@ class SlideController extends Controller
         return Inertia::render('Admin/Slides/Edit', [
             'displays' => DisplaySlideResource::collection($displays),
             'slide' => $slide,
-            'slides' => Slide::orderBy('order')->get(),
+            'slides' => SlideResource::collection(Slide::orderBy('order')->get()),
         ]);
     }
 

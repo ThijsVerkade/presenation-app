@@ -1,5 +1,5 @@
 <template>
-    <Base :slides="slides" :displays="displays">
+    <Base :slides="slides.data" :displays="displays">
         <h1 class="u-text-sm u-font-normal u-text-neutral-800 u-mb-5 ">Displays</h1>
 
         <Draggable
@@ -89,7 +89,7 @@ import {route} from "ziggy-js";
 const apiCall = createApiCall();
 
 
-const props = defineProps<{
+const props = defineProps< {
     displays: {
         id: number;
         name: string;
@@ -97,10 +97,12 @@ const props = defineProps<{
         height: number;
         order: number;
     }[];
-    slides: Array<{
-        id: number;
-        is_active: boolean;
-    }>;
+    slides: {
+        data: Array<{
+                id: number;
+                is_active: boolean;
+            }>
+    };
 }>();
 
 const isDialogVisible = ref(false)

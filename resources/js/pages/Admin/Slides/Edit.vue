@@ -1,5 +1,5 @@
 <template>
-    <Base :slides="slides" :slide="slide" :displays="displays.data">
+    <Base :slides="slides.data" :slide="slide" :displays="displays.data">
         <div class="u-gap-2 u-ml-auto u-flex u-justify-end">
             <Select
                 :autocomplete="false"
@@ -127,10 +127,13 @@ const props = defineProps<{
             media?: string;
         }[];
     };
-    slides: Array<{
-        id: number;
-        is_active: boolean;
-    }>;
+    slides: {
+        data: {
+            id: number;
+            is_active: boolean;
+            first_media?: string;
+        }[];
+    };
 }>();
 
 const firstDisplay = computed(() => props.displays.data[0]);

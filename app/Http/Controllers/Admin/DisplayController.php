@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DisplayRequest;
+use App\Http\Resources\SlideResource;
 use App\Models\Display;
 use App\Models\Slide;
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ class DisplayController extends Controller
     {
         return Inertia::render('Admin/Displays/Index', [
             'displays' => Display::orderBy('order')->get(),
-            'slides' => Slide::orderBy('order')->get(),
+            'slides' => SlideResource::collection(Slide::orderBy('order')->get()),
         ]);
     }
 
