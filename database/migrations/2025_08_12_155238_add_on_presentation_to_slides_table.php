@@ -8,18 +8,14 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('slides', function (Blueprint $table) {
-            if (!Schema::hasColumn('slides', 'duration_seconds')) {
-                $table->unsignedInteger('duration_seconds')->nullable();
-            }
+            $table->boolean('on_presentation')->default(false)->after('is_active');
         });
     }
 
     public function down(): void
     {
         Schema::table('slides', function (Blueprint $table) {
-            if (Schema::hasColumn('slides', 'duration_seconds')) {
-                $table->dropColumn('duration_seconds');
-            }
+            $table->dropColumn('on_presentation');
         });
     }
 };

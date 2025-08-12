@@ -14,34 +14,37 @@ class SlideActivated implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    protected array $channels = [];
-    protected array $mediaPaths = [];
+    protected array $channels;
+    protected array $mediaPaths;
 
-    public function __construct(public readonly Slide $slide)
+    public function __construct(public readonly ?Slide $slide)
     {
         $this->prepareBroadcastData();
     }
 
     protected function prepareBroadcastData(): void
     {
-        // Only displays that actually have an asset for THIS slide
-        $displays = Display::query()
-            ->whereHas('slideDisplayAssets', fn ($q) => $q->where('slide_id', $this->slide->id))
-            ->with([
-                // Load just the single asset for this slide to avoid extra memory
-                'slideDisplayAssets' => fn ($q) => $q->where('slide_id', $this->slide->id)->limit(1),
-            ])
-            ->get(['id', 'slug']);
+        if ($this->slide === null) {
+            foreach (Display::get() as $display) {
+                $this->channels[] = new Channel('display.' . $display->slug);
+                $this->mediaPaths[$display->slug] = '';
+            }
+            return;
+        }
+
+        $displays = Display::with([
+            'slideDisplayAssets' => fn($query) => $query->where('slide_id', $this->slide->id)
+        ])->get();
+
+        $this->channels = [];
+        $this->mediaPaths = [];
 
         foreach ($displays as $display) {
             $this->channels[] = new Channel('display.' . $display->slug);
 
-            $asset = $display->slideDisplayAssets->first(); // collection -> first model
+            $asset = $display->slideDisplayAssets;
             if ($asset) {
-                // If your asset model uses Spatie Media Library, this is fine:
-                $this->mediaPaths[$display->slug] = $asset->getFirstMediaUrl('slides') ?: null;
-            } else {
-                $this->mediaPaths[$display->slug] = null;
+                $this->mediaPaths[$display->slug] = $asset->getFirstMediaUrl('slides');
             }
         }
     }
@@ -54,8 +57,8 @@ class SlideActivated implements ShouldBroadcastNow
     public function broadcastWith(): array
     {
         return [
+            'slide_id' => $this->slide?->id,
             'media_paths' => $this->mediaPaths,
-            'slide_id'    => $this->slide->id,
         ];
     }
 }

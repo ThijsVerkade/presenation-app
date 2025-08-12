@@ -16,7 +16,9 @@ class DisplaySlideResource extends JsonResource
     {
         $slideAsset = $this->slideDisplayAssets;
 
-        $mediaUrl = $slideAsset && $slideAsset->hasMedia('slides')
+        $mediaUrl = $slideAsset
+        && $slideAsset->hasMedia('slides')
+        && $slideAsset->slide->on_presentation
             ? $slideAsset->getFirstMediaUrl('slides')
             : null;
 

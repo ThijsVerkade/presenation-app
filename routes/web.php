@@ -19,12 +19,16 @@ Route::get('/client', function () {
 Route::get('/d/{display:slug}', [\App\Http\Controllers\DisplayController::class, 'show'])->name('display.view');
 Route::post('/admin/slides', [SlideController::class, 'store'])->name('admin.slides.store');
 Route::post('/admin/reorder/slides', [SlideController::class, 'reorder'])->name('admin.slides.reorder');
-Route::get('/admin/slides/{slide:id}/activate', [SlideActivationController::class, 'index'])->name('admin.slides.activate');
-Route::post('/admin/slides/next', [SlideActivationController::class, 'next'])->name('admin.slides.next');
-Route::post('/admin/slides/previous', [SlideActivationController::class, 'previous'])->name('admin.slides.previous');
 Route::get('/admin/slides/{slide:id}', [SlideController::class, 'edit'])->name('admin.slides');
 Route::patch('/admin/slides/{slide:id}', [SlideController::class, 'patch'])->name('admin.slides.edit');
 Route::delete('/admin/slides/{slide:id}', [SlideController::class, 'destroy'])->name('admin.slides.destroy');
+
+Route::get('/admin/play', [SlideActivationController::class, 'index'])->name('admin.play.index');
+Route::post('/admin/play/start', [SlideActivationController::class, 'start'])->name('admin.play.start');
+Route::post('/admin/play/next', [SlideActivationController::class, 'next'])->name('admin.play.next');
+Route::post('/admin/play/previous', [SlideActivationController::class, 'previous'])->name('admin.play.previous');
+Route::post('/admin/play/goto/{slide:id}', [SlideActivationController::class, 'goTo'])->name('admin.play.goto');
+Route::post('/admin/play/stop', [SlideActivationController::class, 'stop'])->name('admin.play.stop');
 
 Route::get('/admin/displays', [DisplayController::class, 'index'])->name('admin.displays');
 Route::post('/admin/displays', [DisplayController::class, 'store'])->name('admin.displays.store');

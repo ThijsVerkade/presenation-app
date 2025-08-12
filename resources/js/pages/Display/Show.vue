@@ -79,7 +79,7 @@ onMounted(() => {
             currentSlide.value = event.slide;
 
             const url = event.media_paths?.[props.display.data.slug] || null;
-            console.log(url)
+            console.log(event.slide, url)
             mediaUrl.value = url;
             mediaType.value = getMediaType(url);
         });

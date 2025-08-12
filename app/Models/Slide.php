@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Slide extends Model
 {
-    protected $fillable = ['order', 'is_active'];
+    protected $fillable = ['order', 'is_active', 'duration_seconds', 'on_presentation'];
 
     public function slideDisplayAssets(): HasMany
     {

@@ -83,12 +83,11 @@ onMounted(() => {
                 @click=""
                 :href="route('admin.displays')"/>
             <Button
-                v-if="slide"
                 icon="fal fa-play"
                 variant="primary"
                 size="md"
                 label="Play"
-                :href="route('admin.slides.activate', { slide: slide.id })"
+                :href="route('admin.play.index')"
                 />
         </div>
         <div class="u-mt-4 u-border-t u-border-neutral-200 u-pt-4 u-px-6">

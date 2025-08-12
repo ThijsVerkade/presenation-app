@@ -11,7 +11,7 @@ class DisplayController extends Controller
 {
     public function show(string $slug): \Inertia\Response
     {
-        $slide = Slide::query()->where('is_active', true)->first();
+        $slide = Slide::query()->where('on_presentation', true)->first();
 
         if ($slide !== null) {
             $display = Display::with(['slideDisplayAssets' =>
