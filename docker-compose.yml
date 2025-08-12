@@ -10,6 +10,7 @@ services:
     volumes:
         - ./public/media:/var/www/html/public/media
         - ./database:/var/www/html/database
+        - ./.env:/var/www/html/.env
     restart: unless-stopped
     dns:
         - 127.0.0.1
