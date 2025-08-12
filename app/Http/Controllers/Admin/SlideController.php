@@ -34,6 +34,7 @@ class SlideController extends Controller
     {
         $slide->update([
             'is_active' => $request->input('is_active', false),
+            'duration_seconds' => $request->input('duration_seconds', null),
         ]);
 
         return new JsonResponse('Slide updated successfully.', 200);

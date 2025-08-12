@@ -28,6 +28,7 @@ class SlideResource extends JsonResource
             'id' => $this->id,
             'is_active' => $this->is_active,
             'order' => $this->order,
+            'duration_seconds' => $this->duration_seconds,
             'first_media' => $mediaUrl
         ];
     }

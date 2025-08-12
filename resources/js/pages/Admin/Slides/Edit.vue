@@ -2,10 +2,15 @@
     <Base :slides="slides.data" :slide="slide" :displays="displays.data">
         <div class="u-gap-2 u-ml-auto u-flex u-justify-end">
             <InputBase
-                v-model="slide.autoplay_time"
+                v-model="slide.duration_seconds"
+                :addon="{
+                    label: 'Duration (seconds)',
+                    position: 'start',
+                }"
                 size="lg"
                 type="number"
                 placeholder="Enter auto play time"
+                @change="() => updateSlide(slide.is_active, slide.duration_seconds)"
             />
             <Select
                 :autocomplete="false"
@@ -16,7 +21,7 @@
           { label: 'Draft', value: 0 }
         ]"
                 size="md"
-                @change="(option) => updateSlide(option)"
+                @change="(option) => updateSlide(option, slide.duration_seconds)"
             />
             <Button icon="fal fa-trash-alt" @click="deleteSlide()" />
         </div>
@@ -150,6 +155,7 @@ const props = defineProps<{
         data: {
             id: number;
             is_active: boolean;
+            duration_seconds: boolean;
             first_media?: string;
         }[];
     };
@@ -218,11 +224,14 @@ const handleUploaded = async (displayId: number, file: UploadFileProps) => {
     }
 };
 
-const updateSlide = async (is_active: number) => {
+const updateSlide = async (is_active: number, duration_seconds: number) => {
     await apiCall(
         'patch',
         route('admin.slides.edit', { id: props.slide.id }),
-        { is_active },
+        {
+            is_active,
+            duration_seconds
+        },
         'Display updated successfully',
         'Failed to update display'
     );
