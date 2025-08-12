@@ -14,8 +14,8 @@ class SlideActivated implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    protected array $channels;
-    protected array $mediaPaths;
+    protected array $channels = [];
+    protected array $mediaPaths = [];
 
     public function __construct(public readonly Slide $slide)
     {
@@ -24,20 +24,24 @@ class SlideActivated implements ShouldBroadcastNow
 
     protected function prepareBroadcastData(): void
     {
-        $displays = Display::with([
-            'slideDisplayAssets' => fn($query) =>
-            $query->where('slide_id', $this->slide->id)
-        ])->get();
-
-        $this->channels = [];
-        $this->mediaPaths = [];
+        // Only displays that actually have an asset for THIS slide
+        $displays = Display::query()
+            ->whereHas('slideDisplayAssets', fn ($q) => $q->where('slide_id', $this->slide->id))
+            ->with([
+                // Load just the single asset for this slide to avoid extra memory
+                'slideDisplayAssets' => fn ($q) => $q->where('slide_id', $this->slide->id)->limit(1),
+            ])
+            ->get(['id', 'slug']);
 
         foreach ($displays as $display) {
             $this->channels[] = new Channel('display.' . $display->slug);
 
-            $asset = $display->slideDisplayAssets;
+            $asset = $display->slideDisplayAssets->first(); // collection -> first model
             if ($asset) {
-                $this->mediaPaths[$display->slug] = $asset->getFirstMediaUrl('slides');
+                // If your asset model uses Spatie Media Library, this is fine:
+                $this->mediaPaths[$display->slug] = $asset->getFirstMediaUrl('slides') ?: null;
+            } else {
+                $this->mediaPaths[$display->slug] = null;
             }
         }
     }
@@ -51,6 +55,7 @@ class SlideActivated implements ShouldBroadcastNow
     {
         return [
             'media_paths' => $this->mediaPaths,
+            'slide_id'    => $this->slide->id,
         ];
     }
 }

@@ -20,7 +20,10 @@ Route::get('/d/{display:slug}', [\App\Http\Controllers\DisplayController::class,
 Route::post('/admin/slides', [SlideController::class, 'store'])->name('admin.slides.store');
 Route::post('/admin/reorder/slides', [SlideController::class, 'reorder'])->name('admin.slides.reorder');
 Route::get('/admin/slides/{slide:id}/activate', [SlideActivationController::class, 'index'])->name('admin.slides.activate');
+Route::post('/admin/slides/next', [SlideActivationController::class, 'next'])->name('admin.slides.next');
+Route::post('/admin/slides/previous', [SlideActivationController::class, 'previous'])->name('admin.slides.previous');
 Route::get('/admin/slides/{slide:id}', [SlideController::class, 'edit'])->name('admin.slides');
+Route::patch('/admin/slides/{slide:id}', [SlideController::class, 'patch'])->name('admin.slides.edit');
 Route::delete('/admin/slides/{slide:id}', [SlideController::class, 'destroy'])->name('admin.slides.destroy');
 
 Route::get('/admin/displays', [DisplayController::class, 'index'])->name('admin.displays');

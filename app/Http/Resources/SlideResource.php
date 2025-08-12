@@ -18,7 +18,9 @@ class SlideResource extends JsonResource
     {
         $slideAsset = $this->slideDisplayAssets->sortBy('order')->first();
 
-        $mediaUrl = $slideAsset && $slideAsset->hasMedia('slides')
+        $mediaUrl = $slideAsset
+        && $slideAsset->hasMedia('slides')
+        && $slideAsset->display->order <= 1
             ? $slideAsset->getFirstMediaUrl('slides')
             : null;
 
@@ -26,7 +28,7 @@ class SlideResource extends JsonResource
             'id' => $this->id,
             'is_active' => $this->is_active,
             'order' => $this->order,
-            'first_media' => $slideAsset->display->order <= 1 ? $mediaUrl : null
+            'first_media' => $mediaUrl
         ];
     }
 

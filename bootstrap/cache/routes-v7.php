@@ -32,7 +32,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::3PBENGkaXuXWD4Zz',
+            '_route' => 'generated::Fv7YdmMUHc7X2nTl',
           ),
           1 => NULL,
           2 => 
@@ -52,7 +52,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::ffecW7qq5vTxJ25W',
+            '_route' => 'generated::GZ6KoPXCm4U9UZCr',
           ),
           1 => NULL,
           2 => 
@@ -91,7 +91,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::QHTxQaSDRpXsPz1e',
+            '_route' => 'generated::t3CHbFkjOH5A6J4C',
           ),
           1 => NULL,
           2 => 
@@ -111,7 +111,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::73kXwUiX2sEPu8os',
+            '_route' => 'generated::GwDfwACCFG053AVd',
           ),
           1 => NULL,
           2 => 
@@ -131,7 +131,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::5KiLTXVAdx87HK6Q',
+            '_route' => 'generated::JsSrYqL4Wdo87dpN',
           ),
           1 => NULL,
           2 => 
@@ -171,6 +171,44 @@ app('router')->setCompiledRoutes(
           0 => 
           array (
             '_route' => 'admin.slides.reorder',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/admin/slides/next' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'admin.slides.next',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/admin/slides/previous' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'admin.slides.previous',
           ),
           1 => NULL,
           2 => 
@@ -263,7 +301,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::YkfoGN7ssjFgV5jK',
+            '_route' => 'generated::mNhBSWpoWWKlfmkJ',
           ),
           1 => NULL,
           2 => 
@@ -370,6 +408,44 @@ app('router')->setCompiledRoutes(
           array (
             'GET' => 0,
             'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'admin.slides.edit',
+          ),
+          1 => 
+          array (
+            0 => 'slide',
+          ),
+          2 => 
+          array (
+            'PATCH' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        2 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'admin.slides.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'slide',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
           ),
           3 => NULL,
           4 => false,
@@ -490,7 +566,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::3PBENGkaXuXWD4Zz' => 
+    'generated::Fv7YdmMUHc7X2nTl' => 
     array (
       'methods' => 
       array (
@@ -502,7 +578,7 @@ app('router')->setCompiledRoutes(
       array (
         'uses' => 'Livewire\\Mechanisms\\FrontendAssets\\FrontendAssets@returnJavaScriptAsFile',
         'controller' => 'Livewire\\Mechanisms\\FrontendAssets\\FrontendAssets@returnJavaScriptAsFile',
-        'as' => 'generated::3PBENGkaXuXWD4Zz',
+        'as' => 'generated::Fv7YdmMUHc7X2nTl',
       ),
       'fallback' => false,
       'defaults' => 
@@ -518,7 +594,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::ffecW7qq5vTxJ25W' => 
+    'generated::GZ6KoPXCm4U9UZCr' => 
     array (
       'methods' => 
       array (
@@ -530,7 +606,7 @@ app('router')->setCompiledRoutes(
       array (
         'uses' => 'Livewire\\Mechanisms\\FrontendAssets\\FrontendAssets@maps',
         'controller' => 'Livewire\\Mechanisms\\FrontendAssets\\FrontendAssets@maps',
-        'as' => 'generated::ffecW7qq5vTxJ25W',
+        'as' => 'generated::GZ6KoPXCm4U9UZCr',
       ),
       'fallback' => false,
       'defaults' => 
@@ -601,7 +677,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::QHTxQaSDRpXsPz1e' => 
+    'generated::t3CHbFkjOH5A6J4C' => 
     array (
       'methods' => 
       array (
@@ -630,7 +706,7 @@ app('router')->setCompiledRoutes(
                         \'exception\' => $exception,
                     ]), status: $exception ? 500 : 200);
                 }";s:5:"scope";s:54:"Illuminate\\Foundation\\Configuration\\ApplicationBuilder";s:4:"this";N;s:4:"self";s:32:"00000000000007510000000000000000";}}',
-        'as' => 'generated::QHTxQaSDRpXsPz1e',
+        'as' => 'generated::t3CHbFkjOH5A6J4C',
       ),
       'fallback' => false,
       'defaults' => 
@@ -646,7 +722,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::73kXwUiX2sEPu8os' => 
+    'generated::GwDfwACCFG053AVd' => 
     array (
       'methods' => 
       array (
@@ -668,7 +744,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::73kXwUiX2sEPu8os',
+        'as' => 'generated::GwDfwACCFG053AVd',
       ),
       'fallback' => false,
       'defaults' => 
@@ -684,7 +760,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::5KiLTXVAdx87HK6Q' => 
+    'generated::JsSrYqL4Wdo87dpN' => 
     array (
       'methods' => 
       array (
@@ -706,7 +782,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::5KiLTXVAdx87HK6Q',
+        'as' => 'generated::JsSrYqL4Wdo87dpN',
       ),
       'fallback' => false,
       'defaults' => 
@@ -870,6 +946,78 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
+    'admin.slides.next' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'admin/slides/next',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Admin\\SlideActivationController@next',
+        'controller' => 'App\\Http\\Controllers\\Admin\\SlideActivationController@next',
+        'namespace' => NULL,
+        'prefix' => '',
+        'where' => 
+        array (
+        ),
+        'as' => 'admin.slides.next',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'admin.slides.previous' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'admin/slides/previous',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Admin\\SlideActivationController@previous',
+        'controller' => 'App\\Http\\Controllers\\Admin\\SlideActivationController@previous',
+        'namespace' => NULL,
+        'prefix' => '',
+        'where' => 
+        array (
+        ),
+        'as' => 'admin.slides.previous',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
     'admin.slides' => 
     array (
       'methods' => 
@@ -892,6 +1040,80 @@ app('router')->setCompiledRoutes(
         array (
         ),
         'as' => 'admin.slides',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+        'slide' => 'id',
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'admin.slides.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PATCH',
+      ),
+      'uri' => 'admin/slides/{slide}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Admin\\SlideController@patch',
+        'controller' => 'App\\Http\\Controllers\\Admin\\SlideController@patch',
+        'namespace' => NULL,
+        'prefix' => '',
+        'where' => 
+        array (
+        ),
+        'as' => 'admin.slides.edit',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+        'slide' => 'id',
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'admin.slides.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'admin/slides/{slide}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Admin\\SlideController@destroy',
+        'controller' => 'App\\Http\\Controllers\\Admin\\SlideController@destroy',
+        'namespace' => NULL,
+        'prefix' => '',
+        'where' => 
+        array (
+        ),
+        'as' => 'admin.slides.destroy',
       ),
       'fallback' => false,
       'defaults' => 
@@ -1125,7 +1347,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::YkfoGN7ssjFgV5jK' => 
+    'generated::mNhBSWpoWWKlfmkJ' => 
     array (
       'methods' => 
       array (
@@ -1151,7 +1373,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 'Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken',
         ),
-        'as' => 'generated::YkfoGN7ssjFgV5jK',
+        'as' => 'generated::mNhBSWpoWWKlfmkJ',
       ),
       'fallback' => false,
       'defaults' => 
@@ -1183,7 +1405,7 @@ app('router')->setCompiledRoutes(
                         $config,
                         $isProduction
                     ))($request, $path);
-                }";s:5:"scope";s:47:"Illuminate\\Filesystem\\FilesystemServiceProvider";s:4:"this";N;s:4:"self";s:32:"00000000000007780000000000000000";}}',
+                }";s:5:"scope";s:47:"Illuminate\\Filesystem\\FilesystemServiceProvider";s:4:"this";N;s:4:"self";s:32:"000000000000077c0000000000000000";}}',
         'as' => 'storage.local',
       ),
       'fallback' => false,

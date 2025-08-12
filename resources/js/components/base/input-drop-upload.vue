@@ -1,15 +1,16 @@
 <template>
-    <label class="c-input-drop-upload" :class="{'is-active': dragging, 'is-small': props.size === 'small'}" v-if="!file">
+    <label class="c-input-drop-upload" :class="{'is-active': dragging, 'is-small': props.size === 'small'}" v-if="!file || !props.preparing">
         <div class="c-input-drop-upload__dropzone"
             @dragover="dragover"
             @dragleave="dragleave"
             @drop="drop"
         >
 
-            <div v-if="loading">
+            <div v-if="loading ||props.preparing">
                 <i class="fas fa-spinner fa-spin c-input-drop-upload__icon"></i>
                 <small v-if="uploadProgress < 100"><span v-if="uploadProgress > 0">{{ uploadProgress }}%</span> uploading...</small>
                 <small v-else-if="preparing">Preparing...</small>
+                <small v-else-if="props.preparing">Preparing...</small>
             </div>
             <div v-else>
                 <i :class="[props.icon, 'c-input-drop-upload__icon']"></i>
@@ -30,6 +31,7 @@ import Mux from '@helpers/mux';
 import type { MuxAssetResponse, MuxVideoResponse } from '@interfaces/input-drop-upload';
 
 interface Props {
+  preparing?: boolean;
   icon?: string;
   label_upload?: string;
   accept?: string;

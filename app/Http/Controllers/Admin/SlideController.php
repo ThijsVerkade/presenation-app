@@ -30,6 +30,15 @@ class SlideController extends Controller
         ]);
     }
 
+    public function patch(Request $request, Slide $slide)
+    {
+        $slide->update([
+            'is_active' => $request->input('is_active', false),
+        ]);
+
+        return new JsonResponse('Slide updated successfully.', 200);
+    }
+
     public function store()
     {
         Slide::query()->create([
