@@ -28,6 +28,6 @@ COPY --chmod=755 /docker/services/queue-worker /etc/services.d/queue-worker
 ENV AUTORUN_ENABLED="true" \
     PHP_OPCACHE_ENABLE="1"
 
-EXPOSE 8080 80 6001
+EXPOSE 8080 6001
 
 USER www-data
