@@ -58,7 +58,7 @@
                 >
                     <template #footer>
                         <div class="u-text-[12px] u-text-neutral-400">
-                            {{ mediaByDisplay[element.slug] || `https://carux.local/d/${element.slug}` }}
+                            {{ `https://carux.local/d/${element.slug}` }}
                         </div>
                     </template>
                 </ScreenCard>
