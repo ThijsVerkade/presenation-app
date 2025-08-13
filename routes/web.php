@@ -36,4 +36,4 @@ Route::post('/admin/displays/{id}', [DisplayController::class, 'update'])->name(
 Route::post('/admin/reorder/displays', [DisplayReorderController::class, 'store'])->name('admin.displays.reorder');
 
 Route::post('/admin/slide-assets', [SlideDisplayAssetController::class, 'store'])->name('admin.slide-assets.store');
-Route::delete('/admin/slide-assets/{id}', [SlideDisplayAssetController::class, 'destroy'])->name('admin.slide-assets.destroy');
+Route::post('/admin/slide-assets/{id}', [SlideDisplayAssetController::class, 'destroy'])->name('admin.slide-assets.destroy');

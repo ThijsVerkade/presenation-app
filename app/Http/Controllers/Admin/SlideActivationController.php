@@ -17,7 +17,7 @@ class SlideActivationController extends Controller
     public function index(Request $request)
     {
         $slide = Slide::query()->where('on_presentation', true)->first();
-        $displays = Display::get();
+        $displays = Display::orderBy('order')->get();
 
         return Inertia::render('Admin/Play/Index', [
             'slide'    => $slide, // can be null; front-end should handle that state

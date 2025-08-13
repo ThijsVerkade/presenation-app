@@ -72,7 +72,6 @@ import Base from "@layouts/base.vue";
 import ScreenCard from "@components/base/ScreenCard.vue";
 import Button from "@components/base/button.vue";
 import { Link } from "@inertiajs/vue3";
-import { route } from "ziggy-js";
 import { createApiCall } from "@helpers/apiHelper";
 import { onMounted, onBeforeUnmount, reactive, ref } from "vue";
 

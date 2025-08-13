@@ -7,7 +7,9 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <script src="https://kit.fontawesome.com/d1f3a2f699.js" crossorigin="anonymous"></script>
+    <link href="/fontawesome/css/fontawesome.css" rel="stylesheet" />
+    <link href="/fontawesome/css/brands.css" rel="stylesheet" />
+    <link href="/fontawesome/css/light.css" rel="stylesheet" />
 
     @vite(['resources/js/app.ts', 'resources/sass/app.scss'])
     @inertiaHead

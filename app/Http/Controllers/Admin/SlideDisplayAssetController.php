@@ -33,8 +33,6 @@ class SlideDisplayAssetController extends Controller
         $asset->clearMediaCollection('slides');
         $asset->delete();
 
-        return response()->json([
-            'message' => 'Asset deleted successfully.',
-        ]);
+        return redirect()->back()->with('success', 'Asset deleted successfully.');
     }
 }

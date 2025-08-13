@@ -1,14 +1,16 @@
 <template>
-    <div class="u-w-full u-h-full u-overflow-hidden">
+    <div class="u-w-screen u-h-screen u-overflow-hidden">
         <div v-if="mediaUrl"  class="u-w-full u-h-full u-overflow-hidden">
             <img
                 v-if="mediaType === 'image'"
                 :src="mediaUrl"
                 alt="Slide image"
+                class="u-object-cover u-object-center u-w-full u-h-full"
             />
             <video
                 v-else-if="mediaType === 'video'"
                 :src="mediaUrl"
+                class="u-object-cover u-object-center u-w-full u-h-full"
                 controls
                 autoplay
                 loop
@@ -22,6 +24,7 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
+import { createApiCall } from "@helpers/apiHelper";
 
 // ✅ TEMPORARY INLINED SETUP
 import Echo from 'laravel-echo';
@@ -39,6 +42,8 @@ const echo = new Echo({
     enabledTransports: ['ws', 'wss'],
 });
 
+const apiCall = createApiCall();
+
 const props = defineProps<{
     display: {
         data: {
@@ -49,6 +54,7 @@ const props = defineProps<{
             height: number;
             order: number;
             media: string;
+            on_presentation: boolean;
         };
     };
     slides: {
@@ -79,18 +85,39 @@ onMounted(() => {
             currentSlide.value = event.slide;
 
             const url = event.media_paths?.[props.display.data.slug] || null;
-            console.log(event.slide, url)
             mediaUrl.value = url;
             mediaType.value = getMediaType(url);
         });
 
-    if (props.display.data.media) {
+    if (props.display.data.on_presentation) {
         mediaUrl.value = props.display.data.media;
         mediaType.value = getMediaType(props.display.data.media);
     }
+
+    document.addEventListener('keydown', keyboardControl);
+    document.addEventListener('mousedown', goToNextSlide);
 });
 
 onBeforeUnmount(() => {
     echo.leave(`display.${props.display.data.slug}`);
+    document.removeEventListener('keydown', keyboardControl);
+    document.removeEventListener('mousedown', goToNextSlide);
 });
+
+const keyboardControl = (event: KeyboardEvent) => {
+    if (event.key === 'ArrowLeft') {
+        goToPreviousSlide();
+    }
+    if (event.key === 'ArrowRight') {
+        goToNextSlide();
+    }
+}
+
+const goToPreviousSlide = async () => {
+    await apiCall("post", route("admin.play.previous"), {}, "Slide loaded successfully", "Failed to load slide");
+};
+
+const goToNextSlide = async () => {
+    await apiCall("post", route("admin.play.next"), {}, "Slide loaded successfully", "Failed to load slide");
+};
 </script>

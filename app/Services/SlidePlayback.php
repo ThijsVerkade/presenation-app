@@ -20,7 +20,7 @@ class SlidePlayback
         $first = Slide::query()->orderBy('order')->firstOrFail();
 
         $this->setOnPresentation($first);
-        broadcast(new SlideActivated($first->fresh()))->toOthers();
+        broadcast(new SlideActivated($first->fresh()));
 
         if ($this->hasDuration($first)) {
             $this->scheduleFrom($first);
@@ -35,7 +35,7 @@ class SlidePlayback
         $next = $this->nextOf($current);
 
         $this->setOnPresentation($next);
-        broadcast(new SlideActivated($next->fresh()))->toOthers();
+        broadcast(new SlideActivated($next->fresh()));
 
         if ($this->hasDuration($next)) {
             $this->scheduleFrom($next);
@@ -51,7 +51,7 @@ class SlidePlayback
         $prev = $this->prevOf($current);
 
         $this->setOnPresentation($prev);
-        broadcast(new SlideActivated($prev->fresh()))->toOthers();
+        broadcast(new SlideActivated($prev->fresh()));
 
         if ($this->hasDuration($prev)) {
             $this->scheduleFrom($prev);

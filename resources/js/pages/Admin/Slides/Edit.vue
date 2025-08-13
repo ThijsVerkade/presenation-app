@@ -126,7 +126,6 @@ import Button from '@components/base/button.vue';
 import { useAlert } from '@composables/useAlert';
 import type { UploadFileProps } from '@/types/media';
 import { createApiCall } from '@helpers/apiHelper';
-import { route } from 'ziggy-js';
 import { router } from '@inertiajs/vue3';
 import { prepareForm } from '@helpers/prepareForm';
 import InputBase from "@components/base/input-base.vue";
@@ -206,19 +205,8 @@ const handleUploaded = async (displayId: number, file: UploadFileProps) => {
             slide_id: props.slide.id
         });
 
-        await apiCall(
-            'post',
-            route('admin.slide-assets.store'),
-            formData,
-            'Display updated successfully',
-            'Failed to update display'
-        );
+        router.post(route('admin.slide-assets.store'), formData)
 
-        router.visit(window.location.href, {
-            replace: true,
-            preserveScroll: false,
-            preserveState: false,
-        });
     } finally {
         setPreparing(displayId, false);
     }
@@ -272,18 +260,6 @@ const deleteSlideAsset = async (assetId: number) => {
 
     if (!result) return;
 
-    apiCall(
-        'delete',
-        route('admin.slide-assets.destroy', { id: assetId }),
-        {},
-        'Display updated successfully',
-        'Failed to update display'
-    );
-
-    router.visit(window.location.href, {
-        replace: true,
-        preserveScroll: false,
-        preserveState: false,
-    });
+    router.post(route('admin.slide-assets.destroy', { id: assetId }));
 };
 </script>

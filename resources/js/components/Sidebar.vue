@@ -3,7 +3,6 @@ import Button from "@components/base/button.vue";
 import ImageCardWithStatus from "@components/base/ImageCardWithStatus.vue";
 import Draggable from 'vuedraggable';
 import {Link, router} from '@inertiajs/vue3';
-import {route} from "ziggy-js";
 import {createApiCall} from "@helpers/apiHelper";
 import {onMounted, ref} from "vue";
 import { useToast } from '@composables/useToast';

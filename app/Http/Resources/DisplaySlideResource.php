@@ -18,7 +18,6 @@ class DisplaySlideResource extends JsonResource
 
         $mediaUrl = $slideAsset
         && $slideAsset->hasMedia('slides')
-        && $slideAsset->slide->on_presentation
             ? $slideAsset->getFirstMediaUrl('slides')
             : null;
 
@@ -30,7 +29,8 @@ class DisplaySlideResource extends JsonResource
             'height' => $this->height,
             'order' => $this->order,
             'asset_id' => $slideAsset->id ?? null,
-            'media' => $mediaUrl
+            'media' => $mediaUrl,
+            'on_presentation' => $slideAsset?->slide?->on_presentation ?? false,
         ];
     }
 }

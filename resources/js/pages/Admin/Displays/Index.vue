@@ -3,7 +3,7 @@
         <h1 class="u-text-sm u-font-normal u-text-neutral-800 u-mb-5 ">Displays</h1>
 
         <Draggable
-            v-model="displays"
+            v-model="displayList"
             handle=".drag-handle"
             item-key="id"
             class="u-w-full u-flex u-flex-wrap u-gap-2 u-mb-4"
@@ -85,7 +85,7 @@ import InputBase from "@components/base/input-base.vue";
 import Dialog from "@components/base/dialog.vue";
 import {createApiCall} from "@helpers/apiHelper";
 import { router } from '@inertiajs/vue3';
-import {route} from "ziggy-js";
+import { watch } from "vue";
 const apiCall = createApiCall();
 
 
@@ -111,7 +111,12 @@ const newWidth = ref('')
 const newHeight = ref('')
 const currentDisplayId = ref(null)
 const isEditing = ref(false)
-const displays = ref([...props.displays]);
+const displayList = ref([...props.displays]);
+
+watch(() => props.displays, (newVal) => {
+    displayList.value = newVal;
+},{deep: true})
+
 
 const openDialog = () => {
     newName.value = ''
@@ -132,7 +137,7 @@ const editDisplay = (display) => {
 }
 
 const onDragEnd = (event) => {
-    const orderedIds = displays.value.map(item => item.id);
+    const orderedIds = displayList.value.map(item => item.id);
     apiCall(
         'post',
         route('admin.displays.reorder'),
@@ -144,36 +149,20 @@ const onDragEnd = (event) => {
 
 const saveDisplay = () => {
     if (isEditing.value) {
-        apiCall(
-            'post',
-            route('admin.displays.update', { id: currentDisplayId.value }),
-            {
-                name: newName.value,
-                width: newWidth.value,
-                height: newHeight.value
-            },
-            'Display updated successfully',
-            'Failed to update display',
-        )
+        router.post(route('admin.displays.update', { id: currentDisplayId.value }), {
+            name: newName.value,
+            width: newWidth.value,
+            height: newHeight.value
+        })
     } else {
-        apiCall(
-            'post',
-            route('admin.displays.store'),
-            {
-                name: newName.value,
-                width: newWidth.value,
-                height: newHeight.value
-            },
-            'Display created successfully',
-            'Failed to create display',
-        )
+        router.post(route('admin.displays.store', { id: currentDisplayId.value }), {
+            name: newName.value,
+            width: newWidth.value,
+            height: newHeight.value
+        })
     }
+
     isDialogVisible.value = false;
-    router.visit(window.location.href, {
-        replace: true,
-        preserveScroll: false,
-        preserveState: false,
-    })
 }
 </script>
 

@@ -50,6 +50,6 @@ class DisplayController extends Controller
             'height' => $validated['height'],
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Display updated successfully');
     }
 }
