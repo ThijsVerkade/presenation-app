@@ -26,8 +26,5 @@ else
   echo "🚀 Starting Docker container with docker-compose..."
 
   # Enable BuildKit universally
-  export DOCKER_BUILDKIT=1
-  export COMPOSE_DOCKER_CLI_BUILD=1
-
-  sudo docker-compose up -d
+  sudo DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker-compose up -d
 fi
