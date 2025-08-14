@@ -2,8 +2,8 @@
 set -e
 
 # Configuration
-SSID="PresentationNetwork"
-PASSWORD="YourStrongPassword"
+SSID="CaruxNetwork"
+PASSWORD="Connect2Carux!"
 STATIC_IP="192.168.4.1"
 DHCP_RANGE_START="192.168.4.10"
 DHCP_RANGE_END="192.168.4.100"
