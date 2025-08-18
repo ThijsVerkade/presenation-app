@@ -6,6 +6,7 @@ import {Link, router} from '@inertiajs/vue3';
 import {createApiCall} from "@helpers/apiHelper";
 import {onMounted, ref} from "vue";
 import { useToast } from '@composables/useToast';
+import DropdownMenu from "./base/dropdown-menu/dropdown-menu.vue";
 
 const { toastError } = useToast();
 
@@ -59,6 +60,52 @@ const onDragEnd = (event) => {
     );
 };
 
+// System control functions
+const shutdownLoading = ref(false);
+const restartLoading = ref(false);
+
+const confirmShutdown = async () => {
+    if (confirm('Are you sure you want to shutdown this device? You will need to manually power it back on.')) {
+        await shutdownSystem();
+    }
+};
+
+const confirmRestart = async () => {
+    if (confirm('Are you sure you want to restart this device? This will temporarily stop the presentation system.')) {
+        await restartSystem();
+    }
+};
+
+const shutdownSystem = async () => {
+    shutdownLoading.value = true;
+    try {
+        await apiCall("post", route("admin.system.shutdown"), {}, "System shutdown initiated", "Failed to shutdown system");
+        // Show a message that the system is shutting down
+        setTimeout(() => {
+            alert('System is shutting down. You will need to manually power it back on.');
+        }, 1000);
+    } catch (error) {
+        console.error('Shutdown failed:', error);
+    } finally {
+        shutdownLoading.value = false;
+    }
+};
+
+const restartSystem = async () => {
+    restartLoading.value = true;
+    try {
+        await apiCall("post", route("admin.system.restart"), {}, "System restart initiated", "Failed to restart system");
+        // Show a message that the system is restarting
+        setTimeout(() => {
+            alert('System is restarting. Please wait a moment and refresh the page.');
+        }, 1000);
+    } catch (error) {
+        console.error('Restart failed:', error);
+    } finally {
+        restartLoading.value = false;
+    }
+};
+
 onMounted(() => {
     if (props.displays.length === 0) {
         toastError("You need at least one display before you can add slides. Please create a display first.");
@@ -73,22 +120,51 @@ onMounted(() => {
             <img src="/images/logo.svg" alt="Logo" class="h-10" />
             <h1 class="u-text-sm u-font-semibold u-mt-0 u-max-w-[600px] u-ml-2 u-word-break-all">Presentation</h1>
         </div>
-        <div class="u-flex u-justify-between u-px-6">
-            <Button
-                icon="fal fa-display"
-                variant="secondary"
-                size="md"
-                label="Display"
-                @click=""
-                :href="route('admin.displays')"/>
-            <Button
-                icon="fal fa-play"
-                variant="primary"
-                size="md"
-                label="Play"
-                :href="route('admin.play.index')"
-                />
+        <div class="u-flex u-justify-between u-px-2">
+            <div class="u-flex u-gap-2">
+                <Button
+                    icon="fal fa-display"
+                    variant="secondary"
+                    size="md"
+                    label="Display"
+                    @click=""
+                    :href="route('admin.displays')"/>
+                <Button
+                    icon="fal fa-play"
+                    variant="primary"
+                    size="md"
+                    label="Play"
+                    :href="route('admin.play.index')"
+                    />
+            </div>
+                <DropdownMenu :options="[{
+                        type: 'action',
+                        label: 'Restart',
+                        icon: 'fal fa-redo',
+                        variant: 'warning',
+                        size: 'sm',
+                        onClick: confirmRestart,
+                        loading: restartLoading
+                    }, {
+                        type: 'action',
+                        label: 'Shutdown',
+                        icon: 'fal fa-power-off',
+                        variant: 'danger',
+                        size: 'sm',
+                        onClick: confirmShutdown,
+                        loading: shutdownLoading
+                    }]"
+                >
+                <template #button>
+                    <Button
+                        icon="fal fa-power-off"
+                        variant="secondary"
+                        size="md"
+                    />
+                </template>
+            </DropdownMenu>
         </div>
+
         <div class="u-mt-4 u-border-t u-border-neutral-200 u-pt-4 u-px-6">
             <h2 class="u-text-neutral-400 u-text-sm u-font-medium u-pb-4" >Slides</h2>
             <Draggable

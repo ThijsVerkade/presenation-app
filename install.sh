@@ -62,6 +62,12 @@ sudo systemctl daemon-reexec
 sudo systemctl daemon-reload
 sudo systemctl restart hostapd
 
+# 🔧 Configure sudoers for web shutdown commands
+echo "🔧 Configuring sudoers for web shutdown commands..."
+echo "www-data ALL=(ALL) NOPASSWD: /sbin/shutdown, /sbin/reboot" | sudo tee /etc/sudoers.d/web-shutdown > /dev/null
+echo "nginx ALL=(ALL) NOPASSWD: /sbin/shutdown, /sbin/reboot" | sudo tee -a /etc/sudoers.d/web-shutdown > /dev/null
+sudo chmod 440 /etc/sudoers.d/web-shutdown
+
 # 🛠 Ensuring database.sqlite is ready...
 mkdir -p database
 if [ -d database/database.sqlite ]; then

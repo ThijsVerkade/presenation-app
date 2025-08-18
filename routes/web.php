@@ -37,3 +37,6 @@ Route::post('/admin/reorder/displays', [DisplayReorderController::class, 'store'
 
 Route::post('/admin/slide-assets', [SlideDisplayAssetController::class, 'store'])->name('admin.slide-assets.store');
 Route::post('/admin/slide-assets/{id}', [SlideDisplayAssetController::class, 'destroy'])->name('admin.slide-assets.destroy');
+
+Route::post('/admin/system/shutdown', [\App\Http\Controllers\Admin\SystemController::class, 'shutdown'])->name('admin.system.shutdown');
+Route::post('/admin/system/restart', [\App\Http\Controllers\Admin\SystemController::class, 'restart'])->name('admin.system.restart');

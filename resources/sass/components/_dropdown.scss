@@ -5,7 +5,7 @@ $component: 'c-dropdown';
     display: flex;
     gap: 0.25rem; // 4px
     flex-direction: column;
-    z-index: 10;
+    z-index: 100;
     // width: 287px;
     background: var(--neutral-000);
     border-radius: 0.5rem; // 8px
