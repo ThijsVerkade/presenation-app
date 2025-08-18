@@ -14,13 +14,7 @@ class SystemController extends Controller
             Log::info('System shutdown requested by user');
 
             // Create a trigger file that the host system can monitor
-            $triggerFile = '/tmp/presentation-control/shutdown-requested';
-
-            // Ensure the directory exists
-            $dir = dirname($triggerFile);
-            if (!is_dir($dir)) {
-                mkdir($dir, 0755, true);
-            }
+            $triggerFile = '/tmp/shutdown-requested';
 
             file_put_contents($triggerFile, date('Y-m-d H:i:s') . ' - Shutdown requested by web interface');
 
@@ -44,13 +38,7 @@ class SystemController extends Controller
             Log::info('System restart requested by user');
 
             // Create a trigger file that the host system can monitor
-            $triggerFile = '/tmp/presentation-control/restart-requested';
-
-            // Ensure the directory exists
-            $dir = dirname($triggerFile);
-            if (!is_dir($dir)) {
-                mkdir($dir, 0755, true);
-            }
+            $triggerFile = '/tmp/restart-requested';
 
             file_put_contents($triggerFile, date('Y-m-d H:i:s') . ' - Restart requested by web interface');
 
