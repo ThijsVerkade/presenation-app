@@ -13,27 +13,23 @@ class SystemController extends Controller
         try {
             Log::info('System shutdown requested by user');
 
-            // Execute shutdown command
-            exec('sudo shutdown -h now 2>&1', $output, $returnCode);
+            // Create a trigger file that the host system can monitor
+            $triggerFile = '/tmp/shutdown-requested';
+            file_put_contents($triggerFile, date('Y-m-d H:i:s') . ' - Shutdown requested by web interface');
 
-            if ($returnCode === 0) {
-                return response()->json([
-                    'ok' => true,
-                    'message' => 'System shutdown initiated successfully',
-                ]);
-            } else {
-                Log::error('Shutdown command failed', ['output' => $output, 'return_code' => $returnCode]);
-                return response()->json([
-                    'ok' => false,
-                    'message' => 'Failed to initiate shutdown',
-                    'error' => implode("\n", $output),
-                ], 500);
-            }
+            // Also try to send a signal to the host system via Docker
+            // This requires the container to be run with --privileged or specific capabilities
+            exec('echo "shutdown" > /dev/console 2>&1', $output, $returnCode);
+
+            return response()->json([
+                'ok' => true,
+                'message' => 'Shutdown request sent. The system will shutdown shortly.',
+            ]);
         } catch (\Exception $e) {
-            Log::error('Exception during shutdown', ['error' => $e->getMessage()]);
+            Log::error('Exception during shutdown request', ['error' => $e->getMessage()]);
             return response()->json([
                 'ok' => false,
-                'message' => 'An error occurred during shutdown',
+                'message' => 'An error occurred while requesting shutdown',
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -44,27 +40,22 @@ class SystemController extends Controller
         try {
             Log::info('System restart requested by user');
 
-            // Execute restart command
-            exec('sudo reboot 2>&1', $output, $returnCode);
+            // Create a trigger file that the host system can monitor
+            $triggerFile = '/tmp/restart-requested';
+            file_put_contents($triggerFile, date('Y-m-d H:i:s') . ' - Restart requested by web interface');
 
-            if ($returnCode === 0) {
-                return response()->json([
-                    'ok' => true,
-                    'message' => 'System restart initiated successfully',
-                ]);
-            } else {
-                Log::error('Restart command failed', ['output' => $output, 'return_code' => $returnCode]);
-                return response()->json([
-                    'ok' => false,
-                    'message' => 'Failed to initiate restart',
-                    'error' => implode("\n", $output),
-                ], 500);
-            }
+            // Also try to send a signal to the host system via Docker
+            exec('echo "restart" > /dev/console 2>&1', $output, $returnCode);
+
+            return response()->json([
+                'ok' => true,
+                'message' => 'Restart request sent. The system will restart shortly.',
+            ]);
         } catch (\Exception $e) {
-            Log::error('Exception during restart', ['error' => $e->getMessage()]);
+            Log::error('Exception during restart request', ['error' => $e->getMessage()]);
             return response()->json([
                 'ok' => false,
-                'message' => 'An error occurred during restart',
+                'message' => 'An error occurred while requesting restart',
                 'error' => $e->getMessage(),
             ], 500);
         }

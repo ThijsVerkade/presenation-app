@@ -1,0 +1,13 @@
+[Unit]
+Description=System Control Service for Presentation App
+After=network.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/local/bin/system-control-monitor.sh
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
