@@ -1,28 +1,24 @@
 #!/bin/bash
 
-# Create the script directory
-mkdir -p /usr/local/bin
-
-# Create the monitoring script
-cat > /usr/local/bin/system-control-monitor.sh << 'EOF'
-#!/bin/bash
-
 echo "System control monitor started"
+
+# Create the control directory if it doesn't exist
+mkdir -p /tmp/presentation-control
 
 while true; do
     # Check for shutdown request
-    if [ -f /tmp/shutdown-requested ]; then
+    if [ -f /tmp/presentation-control/shutdown-requested ]; then
         echo "Shutdown requested by web interface"
-        rm -f /tmp/shutdown-requested
+        rm -f /tmp/presentation-control/shutdown-requested
         sleep 2
         shutdown -h now
         break
     fi
 
     # Check for restart request
-    if [ -f /tmp/restart-requested ]; then
+    if [ -f /tmp/presentation-control/restart-requested ]; then
         echo "Restart requested by web interface"
-        rm -f /tmp/restart-requested
+        rm -f /tmp/presentation-control/restart-requested
         sleep 2
         reboot
         break
@@ -30,6 +26,3 @@ while true; do
 
     sleep 1
 done
-EOF
-
-chmod +x /usr/local/bin/system-control-monitor.sh

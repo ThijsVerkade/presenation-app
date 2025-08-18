@@ -14,12 +14,15 @@ class SystemController extends Controller
             Log::info('System shutdown requested by user');
 
             // Create a trigger file that the host system can monitor
-            $triggerFile = '/tmp/shutdown-requested';
-            file_put_contents($triggerFile, date('Y-m-d H:i:s') . ' - Shutdown requested by web interface');
+            $triggerFile = '/tmp/presentation-control/shutdown-requested';
 
-            // Also try to send a signal to the host system via Docker
-            // This requires the container to be run with --privileged or specific capabilities
-            exec('echo "shutdown" > /dev/console 2>&1', $output, $returnCode);
+            // Ensure the directory exists
+            $dir = dirname($triggerFile);
+            if (!is_dir($dir)) {
+                mkdir($dir, 0755, true);
+            }
+
+            file_put_contents($triggerFile, date('Y-m-d H:i:s') . ' - Shutdown requested by web interface');
 
             return response()->json([
                 'ok' => true,
@@ -41,11 +44,15 @@ class SystemController extends Controller
             Log::info('System restart requested by user');
 
             // Create a trigger file that the host system can monitor
-            $triggerFile = '/tmp/restart-requested';
-            file_put_contents($triggerFile, date('Y-m-d H:i:s') . ' - Restart requested by web interface');
+            $triggerFile = '/tmp/presentation-control/restart-requested';
 
-            // Also try to send a signal to the host system via Docker
-            exec('echo "restart" > /dev/console 2>&1', $output, $returnCode);
+            // Ensure the directory exists
+            $dir = dirname($triggerFile);
+            if (!is_dir($dir)) {
+                mkdir($dir, 0755, true);
+            }
+
+            file_put_contents($triggerFile, date('Y-m-d H:i:s') . ' - Restart requested by web interface');
 
             return response()->json([
                 'ok' => true,

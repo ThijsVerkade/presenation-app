@@ -68,6 +68,17 @@ echo "www-data ALL=(ALL) NOPASSWD: /sbin/shutdown, /sbin/reboot" | sudo tee /etc
 echo "nginx ALL=(ALL) NOPASSWD: /sbin/shutdown, /sbin/reboot" | sudo tee -a /etc/sudoers.d/web-shutdown > /dev/null
 sudo chmod 440 /etc/sudoers.d/web-shutdown
 
+# 🔧 Install system control service
+echo "🔧 Installing system control service..."
+sudo cp system-control.service /etc/systemd/system/
+sudo cp system-control-monitor.sh /usr/local/bin/
+sudo chmod +x /usr/local/bin/system-control-monitor.sh
+
+# Enable and start the system control service
+sudo systemctl daemon-reload
+sudo systemctl enable system-control.service
+sudo systemctl start system-control.service
+
 # 🛠 Ensuring database.sqlite is ready...
 mkdir -p database
 if [ -d database/database.sqlite ]; then
@@ -92,6 +103,10 @@ echo "APP_DIR=$APP_DIR" | sudo tee /etc/presentation.env > /dev/null
 # 🛠 Copy and enable Laravel auto-start service
 echo "🛠 Installing Laravel auto-start service..."
 sudo cp presentation.service /etc/systemd/system/
+
+# Ensure proper permissions
+sudo chmod 644 /etc/systemd/system/presentation.service
+sudo chmod +x docker-start.sh
 
 # 🛠 Installing WiFi setup auto-start service
 echo "🛠 Installing WiFi setup service..."

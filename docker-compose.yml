@@ -10,6 +10,7 @@ services:
     volumes:
         - ./public/media:/var/www/html/public/media
         - ./database:/var/www/html/database
+        - /var/run/presentation-control:/tmp/presentation-control
     restart: unless-stopped
     dns:
         - 127.0.0.1
