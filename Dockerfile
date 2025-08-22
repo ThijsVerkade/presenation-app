@@ -25,6 +25,12 @@ COPY --chmod=755 /docker/services/laravel-reverb /etc/services.d/laravel-reverb
 COPY --chmod=755 /docker/services/web /etc/services.d/web
 COPY --chmod=755 /docker/services/queue-worker /etc/services.d/queue-worker
 
+# Copy custom nginx configuration
+COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
+
+# Copy custom PHP configuration
+COPY docker/php.ini /usr/local/etc/php/conf.d/custom.ini
+
 ENV AUTORUN_ENABLED="true" \
     PHP_OPCACHE_ENABLE="1"
 
