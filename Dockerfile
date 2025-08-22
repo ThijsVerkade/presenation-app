@@ -28,11 +28,15 @@ COPY --chmod=755 /docker/services/queue-worker /etc/services.d/queue-worker
 # Copy custom nginx configuration
 COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
 
-# Copy custom PHP configuration
-COPY docker/php.ini /usr/local/etc/php/conf.d/custom.ini
+# Copy custom PHP configuration (renamed to load last)
+COPY docker/php.ini /usr/local/etc/php/conf.d/zzz-custom.ini
 
 ENV AUTORUN_ENABLED="true" \
-    PHP_OPCACHE_ENABLE="1"
+    PHP_OPCACHE_ENABLE="1" \
+    PHP_POST_MAX_SIZE="500M" \
+    PHP_UPLOAD_MAX_FILE_SIZE="500M" \
+    PHP_MAX_EXECUTION_TIME="300" \
+    PHP_MEMORY_LIMIT="512M"
 
 EXPOSE 8080 6001
 
