@@ -30,32 +30,34 @@
         <div v-if="firstDisplay" class="u-h-[500px]">
             <div
                 v-if="firstDisplay.media"
-                class="u-relative u-bg-neutral-50 u-border u-border-neutral-200 u-rounded-[8px] u-h-full u-overflow-hidden"
+                class="u-relative u-h-full"
             >
                 <Button
-                    icon="fal fa-edit"
+                    icon="fal fa-trash-alt"
                     variant="default"
                     size="sm"
                     class="u-absolute u--top-2 u--right-2 u-z-10"
                     @click="deleteSlideAsset(firstDisplay.asset_id)"
                 />
 
-                <template v-if="mediaType === 'image'">
-                    <img
-                        :src="firstDisplay.media"
-                        class="u-absolute u-inset-0 u-w-full u-h-full u-object-cover u-object-center"
-                        alt=""
-                    />
-                </template>
+                <div class="u-bg-neutral-50 u-border u-border-neutral-200 u-rounded-2xl u-h-full u-overflow-hidden">
+                    <template v-if="mediaType === 'image'">
+                        <img
+                            :src="firstDisplay.media"
+                            class="u-w-full u-h-full u-object-cover u-object-center"
+                            alt=""
+                        />
+                    </template>
 
-                <template v-else-if="mediaType === 'video'">
-                    <video
-                        controls
-                        :src="firstDisplay.media"
-                        class="u-absolute u-inset-0 u-w-full u-h-full u-object-cover u-object-center"
-                        playsinline
-                    />
-                </template>
+                    <template v-else-if="mediaType === 'video'">
+                        <video
+                            controls
+                            :src="firstDisplay.media"
+                            class="u-w-full u-h-full u-object-cover u-object-center"
+                            playsinline
+                        />
+                    </template>
+                </div>
             </div>
 
             <InputDropUpload
@@ -75,32 +77,34 @@
             <div v-for="display in otherDisplays" :key="display.id" class="u-w-[calc(25%-0.5rem)]">
                 <div
                     v-if="display.media"
-                    class="u-relative u-bg-neutral-50 u-border u-border-neutral-200 u-rounded-[8px] u-h-[300px] u-overflow-hidden"
+                    class="u-relative u-aspect-square"
                 >
                     <Button
-                        icon="fal fa-edit"
+                        icon="fal fa-trash-alt"
                         variant="default"
                         size="sm"
                         class="u-absolute u--top-2 u--right-2 u-z-10"
                         @click="deleteSlideAsset(display.asset_id)"
                     />
 
-                    <template v-if="getMediaType(display.media) === 'image'">
-                        <img
-                            :src="display.media"
-                            class="u-absolute u-inset-0 u-w-full u-h-full u-object-cover u-object-center"
-                            alt=""
-                        />
-                    </template>
+                    <div class="u-bg-neutral-50 u-border u-border-neutral-200 u-rounded-2xl u-h-full u-overflow-hidden">
+                        <template v-if="getMediaType(display.media) === 'image'">
+                            <img
+                                :src="display.media"
+                                class="u-w-full u-h-full u-object-cover u-object-center"
+                                alt=""
+                            />
+                        </template>
 
-                    <template v-else-if="getMediaType(display.media) === 'video'">
-                        <video
-                            controls
-                            :src="display.media"
-                            class="u-absolute u-inset-0 u-w-full u-h-full u-object-cover u-object-center"
-                            playsinline
-                        />
-                    </template>
+                        <template v-else-if="getMediaType(display.media) === 'video'">
+                            <video
+                                controls
+                                :src="display.media"
+                                class="u-w-full u-h-full u-object-cover u-object-center"
+                                playsinline
+                            />
+                        </template>
+                    </div>
                 </div>
 
                 <InputDropUpload
@@ -110,6 +114,7 @@
                     type="image_video"
                     :preparing="isPreparing(display.id)"
                     @uploaded="(file) => handleUploaded(display.id, file)"
+                    class="u-aspect-square"
                 />
                 <h1 class="u-text-sm u-font-normal u-text-neutral-800 u-mt-5">{{ display.name }}</h1>
             </div>

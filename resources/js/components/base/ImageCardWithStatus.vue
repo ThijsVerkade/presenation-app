@@ -72,8 +72,10 @@ watch(
             <video
                 v-if="imageLoaded && imageUrl"
                 :src="imageUrl"
-                controls
-                class="u-object-cover u-w-full u-h-full"
+                autoplay
+                muted
+                loop
+                class="u-object-cover u-w-full u-h-full u-pointer-events-none"
                 @error="handleImageError"
             />
         </template>

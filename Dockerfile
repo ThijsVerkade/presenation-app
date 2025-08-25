@@ -4,7 +4,7 @@ USER root
 
 # Install GD and EXIF extensions
 RUN apt-get update && \
-    apt-get install -y libjpeg-dev libpng-dev libwebp-dev libfreetype6-dev && \
+    apt-get install -y libjpeg-dev libpng-dev libwebp-dev libfreetype6-dev nano && \
     docker-php-ext-configure gd \
         --with-freetype \
         --with-jpeg \
