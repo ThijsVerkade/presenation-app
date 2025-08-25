@@ -14,6 +14,7 @@
                 controls
                 autoplay
                 loop
+                ref="video"
             ></video>
         </div>
         <div v-else class="no-slide">
@@ -66,6 +67,7 @@ const props = defineProps<{
 const currentSlide = ref(null);
 const mediaUrl = ref(null);
 const mediaType = ref(null);
+const video = ref(null)
 
 const getMediaType = (url: string | null) => {
     const extension = url?.split('.').pop()?.toLowerCase();
@@ -88,7 +90,11 @@ onMounted(() => {
             mediaUrl.value = url;
             mediaType.value = getMediaType(url);
 
-            console.log('slide activated', event.media_paths);
+            if(video.value)
+            {
+                video.value.currentTime = 0;
+            }
+            console.log('slide activated');
         });
 
     if (props.display.data.on_presentation) {

@@ -10,6 +10,7 @@ services:
     volumes:
         - ./public/media:/var/www/html/public/media
         - ./database:/var/www/html/database
+        - ./storage:/var/www/html/storage
         - /tmp:/tmp
     restart: unless-stopped
     dns:

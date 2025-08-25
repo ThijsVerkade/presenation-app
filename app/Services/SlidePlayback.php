@@ -111,6 +111,7 @@ class SlidePlayback
         return Slide::query()
             ->where('order', '>', $current->order)
             ->orderBy('order')
+            ->where('is_active',1)
             ->first()
             ?: Slide::query()->orderBy('order')->firstOrFail();
     }
@@ -120,6 +121,7 @@ class SlidePlayback
         return Slide::query()
             ->where('order', '<', $current->order)
             ->orderByDesc('order')
+            ->where('is_active',1)
             ->first()
             ?: Slide::query()->orderByDesc('order')->firstOrFail();
     }

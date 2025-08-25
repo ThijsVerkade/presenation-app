@@ -13,6 +13,11 @@ sudo DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker-compose build --no-cach
 
 # Start the container
 echo "🚀 Starting container..."
- sudo DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker-compose up -d
+sudo DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker-compose up -d
+
+# Fix storage permissions
+echo "🔧 Fixing storage permissions..."
+sudo docker-compose exec app chown -R www-data:www-data storage bootstrap/cache
+sudo docker-compose exec app chmod -R ug+rw storage bootstrap/cache
 
 echo "✅ Container rebuilt and started"
