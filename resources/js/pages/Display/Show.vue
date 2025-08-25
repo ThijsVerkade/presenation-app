@@ -87,6 +87,8 @@ onMounted(() => {
             const url = event.media_paths?.[props.display.data.slug] || null;
             mediaUrl.value = url;
             mediaType.value = getMediaType(url);
+
+            console.log('slide activated', event.media_paths);
         });
 
     if (props.display.data.on_presentation) {
