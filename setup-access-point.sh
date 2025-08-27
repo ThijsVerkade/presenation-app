@@ -40,13 +40,13 @@ EOF
 sudo systemctl enable systemd-networkd
 sudo systemctl restart systemd-networkd
 
-echo "🛠️ Configuring hostapd..."
+echo "🛠️ Configuring hostapd for 5GHz..."
 sudo tee /etc/hostapd/hostapd.conf > /dev/null <<EOF
 interface=wlan0
 driver=nl80211
 ssid=${SSID}
-hw_mode=g
-channel=7
+hw_mode=a
+channel=36
 wmm_enabled=0
 macaddr_acl=0
 auth_algs=1
