@@ -11,7 +11,6 @@
                 v-else-if="mediaType === 'video'"
                 :src="mediaUrl"
                 class="u-object-cover u-object-center u-w-full u-h-full"
-                controls
                 autoplay
                 loop
                 ref="video"
@@ -93,6 +92,7 @@ onMounted(() => {
             if(video.value)
             {
                 video.value.currentTime = 0;
+                video.value.play();
             }
             console.log('slide activated');
         });

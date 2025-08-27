@@ -97,7 +97,7 @@ class SlidePlayback
             return;
         }
 
-        AdvanceSlide::dispatch($slide->id)->delay(now()->addSeconds($delay));
+        AdvanceSlide::dispatchUnique($slide->id, $delay);
     }
 
     protected function current(): Slide
