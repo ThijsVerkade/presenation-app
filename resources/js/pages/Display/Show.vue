@@ -92,7 +92,6 @@ onMounted(() => {
             if(video.value)
             {
                 video.value.currentTime = 0;
-                video.value.play();
             }
             console.log('slide activated');
         });
