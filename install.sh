@@ -15,7 +15,7 @@ sudo usermod -aG "$APP_USER" "$APP_USER"
 sudo systemctl enable docker
 
 # Make scripts executable
-chmod +x setup-access-point.sh enable-external-access.sh docker-start.sh
+sudo chmod +x setup-access-point.sh enable-external-access.sh docker-start.sh
 
 # 📡 Setup WiFi access point
 echo "📡 Setting up access point..."
