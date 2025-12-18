@@ -24,7 +24,9 @@ if docker ps -aq -f name=$CONTAINER_NAME | grep -q .; then
 else
   # ▶️ Start with docker-compose
   echo "🚀 Starting Docker container with docker-compose..."
+  echo "ℹ️  Using local images only (no internet connection required)..."
 
-  # Enable BuildKit universally
-  sudo DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker-compose up -d
+  # Disable BuildKit to prevent registry checks when offline
+  # pull_policy: never in docker-compose.yml also prevents pulls
+  sudo DOCKER_BUILDKIT=0 docker-compose up -d
 fi

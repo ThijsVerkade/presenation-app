@@ -7,13 +7,15 @@ echo "🔧 Rebuilding Docker container with increased upload limits..."
 echo "🛑 Stopping current container..."
 sudo docker-compose down
 
-# Rebuild the container
+# Rebuild the container (using local images only, no internet pull)
+# Disable BuildKit to prevent registry checks when offline
 echo "🔨 Rebuilding container..."
-sudo DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker-compose build --no-cache
+echo "ℹ️  Using local images only (no internet connection required)..."
+sudo DOCKER_BUILDKIT=0 docker-compose build --no-cache
 
 # Start the container
 echo "🚀 Starting container..."
-sudo DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker-compose up -d
+sudo DOCKER_BUILDKIT=0 docker-compose up -d
 
 # Fix storage permissions (run as root inside container)
 echo "🔧 Fixing storage permissions..."

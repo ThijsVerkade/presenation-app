@@ -3,6 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      pull_policy: never
     container_name: presentation-app
     ports:
       - "80:8080"
