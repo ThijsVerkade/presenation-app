@@ -21,9 +21,10 @@ RUN php artisan key:generate
 RUN chown -R www-data:www-data storage bootstrap/cache \
  && chmod -R ug+rw storage bootstrap/cache
 
-COPY --chmod=755 /docker/services/laravel-reverb /etc/services.d/laravel-reverb
-COPY --chmod=755 /docker/services/web /etc/services.d/web
-COPY --chmod=755 /docker/services/queue-worker /etc/services.d/queue-worker
+COPY /docker/services/laravel-reverb /etc/services.d/laravel-reverb
+COPY /docker/services/web /etc/services.d/web
+COPY /docker/services/queue-worker /etc/services.d/queue-worker
+RUN chmod 755 /etc/services.d/laravel-reverb /etc/services.d/web /etc/services.d/queue-worker
 
 # Copy custom nginx configuration
 COPY docker/nginx.conf /etc/nginx/conf.d/default.conf

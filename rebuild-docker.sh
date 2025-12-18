@@ -9,9 +9,11 @@ sudo docker-compose down
 
 # Rebuild the container (using local images only, no internet pull)
 # Disable BuildKit to prevent registry checks when offline
+# Note: Without --no-cache, Docker uses cached layers (apt-get layer won't re-download packages)
 echo "🔨 Rebuilding container..."
 echo "ℹ️  Using local images only (no internet connection required)..."
-sudo DOCKER_BUILDKIT=0 docker-compose build --no-cache
+echo "ℹ️  Using cached layers to avoid downloading packages..."
+sudo DOCKER_BUILDKIT=0 docker-compose build
 
 # Start the container
 echo "🚀 Starting container..."
